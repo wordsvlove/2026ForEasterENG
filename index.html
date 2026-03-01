@@ -3,662 +3,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walking with the Lord Daily: Living the Way of Life</title>
+    <title>Lent to Easter Daily Devotional</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FDFBF7;
-            color: #333333;
+            background-color: #F8FAFC;
         }
         h1, h2, h3, .serif-text {
-            font-family: 'Lora', serif;
+            font-family: 'Merriweather', serif;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        .tab-active {
-            border-bottom: 2px solid #8B5A2B;
-            color: #8B5A2B;
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-day {
+            background-color: #EEF2FF;
+            border-left: 4px solid #4F46E5;
+            color: #312E81;
             font-weight: 600;
         }
-        .tab-inactive {
-            color: #888888;
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
         }
-        .tab-inactive:hover {
-            color: #555555;
-        }
-        .hidden-content {
-            display: none;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+<body class="text-slate-800 h-screen flex overflow-hidden">
 
-    <div class="max-w-3xl w-full">
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-3xl sm:text-4xl font-bold text-[#5C4033] mb-3">Walking with the Lord Daily</h1>
-            <p class="text-lg text-[#8B5A2B] serif-text italic">Living the Way of Life — Easter Devotional Journey</p>
-            <p class="text-sm text-gray-500 mt-2">Feb 28 (Preparation) to Apr 5 (Easter)</p>
-        </header>
-
-        <!-- Navigation Tabs -->
-        <nav class="flex justify-center border-b border-gray-200 mb-8">
-            <button id="tab-today" class="px-6 py-3 text-lg transition-colors duration-200 tab-active focus:outline-none" onclick="switchTab('today')">
-                Today's Devotional
-            </button>
-            <button id="tab-outline" class="px-6 py-3 text-lg transition-colors duration-200 tab-inactive focus:outline-none" onclick="switchTab('outline')">
-                Full Outline
-            </button>
-        </nav>
-
-        <!-- Content Area -->
-        <main>
-            <!-- Today's Devotional -->
-            <div id="content-today" class="space-y-6">
-                <div class="glass-card rounded-2xl p-6 sm:p-10 relative overflow-hidden">
-                    <!-- Date Badge -->
-                    <div class="absolute top-0 right-0 bg-[#8B5A2B] text-white px-4 py-1 rounded-bl-lg text-sm font-medium tracking-wider" id="display-date">
-                        Loading...
-                    </div>
-
-                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-2 mb-6 text-center leading-snug" id="dev-title">
-                        Loading...
-                    </h2>
-
-                    <div class="space-y-8">
-                        <section>
-                            <div class="flex items-center mb-3">
-                                <span class="bg-[#E6D5C3] text-[#5C4033] px-2 py-1 rounded text-xs font-bold mr-2 uppercase tracking-wider">Daily Verse</span>
-                            </div>
-                            <blockquote class="border-l-4 border-[#8B5A2B] pl-4 italic text-gray-700 serif-text text-lg leading-relaxed" id="dev-verse">
-                            </blockquote>
-                        </section>
-
-                        <section>
-                            <div class="flex items-center mb-3">
-                                <span class="bg-[#E6D5C3] text-[#5C4033] px-2 py-1 rounded text-xs font-bold mr-2 uppercase tracking-wider">Theology & Insight</span>
-                            </div>
-                            <p class="text-gray-700 leading-loose text-justify whitespace-pre-line" id="dev-theology"></p>
-                        </section>
-
-                        <section class="bg-[#F8F5F0] rounded-xl p-5 border border-[#EBE3D5]">
-                            <div class="flex items-center mb-3">
-                                <span class="bg-[#D4A373] text-white px-2 py-1 rounded text-xs font-bold mr-2 uppercase tracking-wider">Inner Reflection</span>
-                            </div>
-                            <p class="text-gray-700 leading-loose text-justify whitespace-pre-line" id="dev-counseling"></p>
-                        </section>
-
-                        <section>
-                            <div class="flex items-center mb-3">
-                                <span class="bg-[#E6D5C3] text-[#5C4033] px-2 py-1 rounded text-xs font-bold mr-2 uppercase tracking-wider">Practical Action</span>
-                            </div>
-                            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                                <svg class="w-6 h-6 text-[#8B5A2B] mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <p class="text-gray-700 leading-relaxed font-medium" id="dev-action"></p>
-                            </div>
-                        </section>
-
-                        <section>
-                            <div class="flex items-center mb-3">
-                                <span class="bg-[#E6D5C3] text-[#5C4033] px-2 py-1 rounded text-xs font-bold mr-2 uppercase tracking-wider">Closing Prayer</span>
-                            </div>
-                            <div class="bg-gray-50 rounded-xl p-6 italic text-gray-600 serif-text leading-relaxed relative">
-                                <span class="text-4xl absolute top-2 left-2 text-gray-200 opacity-50 font-serif">"</span>
-                                <p id="dev-prayer" class="relative z-10 px-4 text-center whitespace-pre-line"></p>
-                            </div>
-                        </section>
-                    </div>
-                    
-                    <div id="preview-notice" class="mt-6 text-center text-sm text-[#8B5A2B] hidden">
-                        * Currently outside the active dates. Showing the preparation devotional by default.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Outline Data -->
-            <div id="content-outline" class="hidden-content">
-                <div class="glass-card rounded-2xl p-6 sm:p-10">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center serif-text">Devotional Outline</h2>
-                    <p class="text-gray-600 text-sm mb-8 text-center">All days are unlocked. Click any date to read and reflect.</p>
-                    
-                    <div class="space-y-6" id="outline-container">
-                        <!-- Outline generated by JS -->
-                    </div>
-                </div>
-            </div>
-        </main>
+    <!-- Mobile Header -->
+    <div class="md:hidden fixed top-0 w-full bg-white shadow-sm z-50 px-4 py-3 flex justify-between items-center border-b border-slate-200">
+        <h1 class="text-lg font-bold text-indigo-900 serif-text">Daily Devotional</h1>
+        <button id="mobileMenuBtn" class="text-slate-600 focus:outline-none p-2 rounded-md hover:bg-slate-100">
+            <i data-lucide="menu"></i>
+        </button>
     </div>
 
-    <script>
-        const devotionals = {
-            "2026-02-28": {
-                dateStr: "Feb 28 (Sat)",
-                title: "Prep: Weeding and Emptying the Soul",
-                verse: "“Rend your heart and not your garments. Return to the Lord your God, for he is gracious and compassionate, slow to anger and abounding in love.” — Joel 2:13",
-                theology: "In church tradition, Lent is a preparation period before Easter. It is not about exchanging suffering for God's love, but intentionally 'emptying' ourselves to clear the weeds in our lives. God doesn't care about outward religious performances (rending garments); He looks for true repentance and the turning of our hearts. This is a season of realignment, letting us acknowledge our weaknesses and make room for Christ's redemption.",
-                counseling: "Modern life is full of 'additions'—buying more things, packing our schedules, absorbing more information. Our souls become like an overcrowded room where even God can't fit in. Lent is a spiritual decluttering. By intentionally fasting or stepping away from certain habits (like mindless scrolling or complaining), we begin to notice what we truly rely on for comfort. When we remove our usual coping mechanisms, we see our true spiritual hunger, allowing us to direct that desire toward God.",
-                action: "Set a specific 'letting go' action for the next 36 days. It could be reducing screen time by 30 minutes a day, or giving up a daily treat, and using that saved time or money to pray in silence or help someone.",
-                prayer: "Lord, my heart is too full—so full that I can hardly hear Your voice. At the start of this journey, grant me the courage to honestly face the substitutes I use to fill my emptiness. Help me to empty myself so Your grace has room to enter my life. In Jesus' name, Amen."
-            },
-            "2026-03-01": {
-                dateStr: "Mar 1 (Sun)",
-                title: "Who is the Boss of Your Life?",
-                verse: "“I am the Alpha and the Omega,” says the Lord God, “who is, and who was, and who is to come, the Almighty.” — Revelation 1:8",
-                theology: "We often think 'servant' only refers to church leaders, but John explicitly writes to 'his servants'—meaning all of us. In modern society, we are used to being calculating 'employees,' often dreaming of becoming the 'boss' of our own lives. But a servant has no personal agenda; their life is meant to satisfy the Master's will. God is the Alpha and Omega, holding the beginning and end of history. Surrendering control to Him is not oppression; it is profound liberation.",
-                counseling: "Many of us feel deeply anxious, usually because we desperately want to control outcomes but lack the power to do so. The inner exhaustion in our lives frequently comes from trying to snatch the 'boss's' seat and carry a weight we weren't designed to bear. Try handing the authority back to the Almighty. Take a moment to notice: in what area—work, children, or finances—are you holding on the tightest? Practicing 'letting go' is actually the starting point of true security.",
-                action: "When facing an unexpected situation today, say silently to yourself: 'I am not the boss; I am serving the Almighty.' Feel the tension leave your shoulders.",
-                prayer: "Dear Lord, I often act like an anxious orphan trying to control everything myself. Today, I willingly lay down my pride of wanting to be my own boss. I humbly submit to Your leading, finding true rest in Your sovereignty. In Jesus' name, Amen."
-            },
-            "2026-03-02": {
-                dateStr: "Mar 2 (Mon)",
-                title: "Stop, So You Have Space to Be Loved",
-                verse: "“Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.” — Psalm 46:10",
-                theology: "We often treat this verse as a soothing remedy for sleeplessness, but its context is actually a time of crisis and war. In a 'fire-at-the-door' moment, God gives a counter-intuitive command: 'Be still!' The original word implies letting go or letting your hands drop. God is telling us that His victory doesn't require our frantic rushing. Stopping is a profound declaration of trust—acknowledging that He is God, and we are not.",
-                counseling: "Busyness has become a badge of self-worth for many. Panicking the moment we stop doing something reveals a hidden fear of losing value or being left behind. We try to earn our security through constant performance. But love cannot be bought with labor. Only when you are willing to lower your defenses and stop trying to prove yourself can you create the inner space to truly experience being loved unconditionally.",
-                action: "Schedule 15 minutes of intentional 'unproductive time' today. No phones, no problem-solving. Just sit quietly and say to God, 'Lord, I am doing nothing right now, but I know You still love me.'",
-                prayer: "Lord, teach me the lesson of rest. My mind often races like a wound-up clock, afraid of not being good enough. I willingly let go today, simply enjoying the peace of Your presence. In Jesus' name, Amen."
-            },
-            "2026-03-03": {
-                dateStr: "Mar 3 (Tue)",
-                title: "The Security of Taking Off the Mask",
-                verse: "“But he said to me, ‘My grace is sufficient for you, for my power is made perfect in weakness.’” — 2 Corinthians 12:9",
-                theology: "Paul pleaded for God to remove his 'thorn,' but God refused. His answer flips our definition of strength upside down. God doesn't promise to make you so strong that you no longer feel pain; He promises His grace is enough to cover your weakness. Weakness isn't an obstacle to experiencing God's grace; it's the landing pad for His power. God's desire isn't for us to be flawless, but to rely on Him constantly.",
-                counseling: "We are taught from a young age to 'be strong,' so we learn to wear masks. But wearing a mask for too long leads to deep loneliness, because people are loving a facade, not the real you. We hide our weaknesses out of shame and fear of rejection. When we find our security in Jesus, we no longer need to mask our vulnerabilities. We stop wasting energy maintaining an illusion and begin to experience true healing.",
-                action: "Share a genuine worry or weakness with a trusted friend or spouse today. Allow yourself to be imperfect and simply ask for their prayers.",
-                prayer: "Lord Jesus, thank You for loving the real, sometimes weak, and flawed me. Give me the courage to take off my perfect disguise and come boldly before You to experience Your gentle covering. In Jesus' name, Amen."
-            },
-            "2026-03-04": {
-                dateStr: "Mar 4 (Wed)",
-                title: "Hearing the Still Small Voice",
-                verse: "“After the earthquake came a fire, but the Lord was not in the fire. And after the fire came a gentle whisper.” — 1 Kings 19:12",
-                theology: "Elijah fled in utter exhaustion and fear. God didn't rebuke him with earth-shattering miracles, nor did He appear in the wind, earthquake, or fire. Instead, God spoke to him in a 'gentle whisper.' God's heart is tender; He knows an exhausted soul cannot bear more shock. He uses the most intimate whisper to reawaken Elijah's calling.",
-                counseling: "Our minds are constantly bombarded by notifications, news, and noise, leaving us in a state of chronic mental fatigue. When the outside volume is too high, we can't hear our inner thoughts, let alone God's voice. Silence is a discipline we must practice. Silence can make us uncomfortable because it forces us to face the emotions we've been running away from.",
-                action: "During your commute or while showering today, don't listen to music or podcasts. Enjoy 10 minutes of complete silence. Notice the thoughts that pop up and hand them over to God.",
-                prayer: "Gentle Lord, the world is too loud, and my heart is too noisy. Calm the storm within me so that, in the silence, I can once again hear Your gentle whisper of love and guidance. In Jesus' name, Amen."
-            },
-            "2026-03-05": {
-                dateStr: "Mar 5 (Thu)",
-                title: "The Tug-of-War Between Fear and Faith",
-                verse: "“He said to his disciples, ‘Why are you so afraid? Do you still have no faith?’” — Mark 4:40",
-                theology: "The disciples were terrified in the violent storm, while Jesus was sleeping in the stern. Their fear was real, but Jesus' question after calming the storm points to the core issue: faith. Faith is not believing 'there will be no storms,' but believing 'even in the storm, God is in my boat and He is in control.' Jesus' peace came from His absolute trust in the Father.",
-                counseling: "It is a common habit for us to blow small problems out of proportion, always expecting the worst possible outcome. Like the disciples in the storm, we look at the waves and feel doomed. When fear takes over, our vision narrows. Faith means choosing to shift our focus from the 'out-of-control circumstances' to the 'ever-present Jesus'—even while our fears are screaming.",
-                action: "Write down the one thing you are most afraid of happening right now. Next to it, write: 'Even if this happens, Jesus is still in my boat, and He will carry me through.'",
-                prayer: "Lord, when life's storms rage, I often feel like You are asleep and don't care. Forgive my little faith. Give me the calm assurance of knowing that with You here, this boat will not sink. In Jesus' name, Amen."
-            },
-            "2026-03-06": {
-                dateStr: "Mar 6 (Fri)",
-                title: "When Prayers Seem Unanswered",
-                verse: "“How long, Lord? Will you forget me forever? How long will you hide your face from me?” — Psalm 13:1",
-                theology: "David's prayer is raw, filled with the agony of feeling abandoned by God. This reminds us that the Bible doesn't sugarcoat reality. God allows the Psalms to record these struggles of 'God seemingly vanishing' because He accepts our genuine emotions. Waiting for God's response is the hardest part of faith, yet it is what purifies our lives the most.",
-                counseling: "When we experience loss, injustice, or chronic pain, the deepest hurt is often the feeling of being overlooked—the feeling that God doesn't care. Suppressing these negative emotions only makes the heart sicker. Pouring out your heart to God (lamenting) like David is a vital step toward true release. Bringing your anger and doubts to God is, in itself, an act of trust.",
-                action: "If you have some disappointment or confusion toward God, try writing Him an 'honest letter' today. Write out your feelings without editing them, and don't rush to find the 'right' theological answer.",
-                prayer: "Lord, sometimes I really feel You are far away and my prayers are bouncing off the ceiling. But I choose to come to You, because who else can I turn to? Guard my heart in the silence. In Jesus' name, Amen."
-            },
-            "2026-03-07": {
-                dateStr: "Mar 7 (Sat)",
-                title: "Sabbath: Resetting the Rhythm of Life",
-                verse: "“Remember the Sabbath day by keeping it holy. Six days you shall labor and do all your work, but the seventh day is a sabbath to the Lord your God.” — Exodus 20:8-10a",
-                theology: "The Sabbath is not a restriction; it was God's 'declaration of freedom' for former slaves. In Egypt, slaves had no right to rest; they existed only to produce. God including the Sabbath in the Ten Commandments was a declaration: we are redeemed, no longer production tools, but beloved children. Rest is the firmest resistance against the world's lie that 'you only have value if you constantly produce.'",
-                counseling: "Modern society is filled with workaholics and burnout. We are afraid to rest for fear of falling behind. Those who do not know how to rest often lack clear life boundaries, allowing work or the demands of others to endlessly invade their personal space. Setting aside a day of rest forces us to hit the pause button, acknowledging that the world can spin without us, and what we truly need is restoration with our Creator.",
-                action: "This weekend, carve out a continuous 4-6 hour block as your 'mini Sabbath.' Do not check work messages during this time; only do things that restore your soul, bring you joy, and connect you with God.",
-                prayer: "Creator Lord, thank You for establishing the rhythm of rest for me. Help me to break free from a slave-like mentality and stop trying to prove myself through endless toil. Let me enjoy true freedom and restoration in You today. In Jesus' name, Amen."
-            },
-            "2026-03-08": {
-                dateStr: "Mar 8 (Sun)",
-                title: "You Are More Precious Than You Think",
-                verse: "“I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.” — Psalm 139:14",
-                theology: "Under God's gaze, David discovered his irreplaceable value. We are not identical replicas on a factory assembly line; we are masterpieces meticulously crafted by the Great Artist. God created us not because He needed workers, but because He wanted to love us. Our worth is not determined by what we do, but by whose masterpiece we are.",
-                counseling: "Feeling insecure about our appearance, status, or simply feeling 'not good enough' is a common modern struggle. We are used to judging ourselves by the world's filtered standards, which often leads to deep self-rejection. We must return to God's word to rediscover our worth. Remember, self-deprecation is not humility; it is distrust in the Creator's craftsmanship. Accepting yourself as you are is the foundation of a healthy soul.",
-                action: "Stand in front of a mirror today. Instead of picking at your flaws, look at yourself and say, 'I am meticulously created by God; I am fearfully and wonderfully made.'",
-                prayer: "Lord, forgive me for often using the world's standards to devalue Your creation. Open my eyes so that I may see my own beauty and dignity through Your loving gaze. In Jesus' name, Amen."
-            },
-            "2026-03-09": {
-                dateStr: "Mar 9 (Mon)",
-                title: "No Longer Defined by Achievements",
-                verse: "“For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God—not by works, so that no one can boast.” — Ephesians 2:8-9",
-                theology: "The core of grace is that it is a 'free gift.' The world's logic is 'you reap what you sow,' but the Kingdom's logic is 'before you even sowed, I already gave you everything.' If salvation could be earned by good behavior, the cross would lose its meaning. God asks us to drop our resumes and approach Him simply as sinners saved by grace.",
-                counseling: "We often worry about not being good enough, terrified that one failure will cost us everything. This stems from equating 'achievements' with 'self-worth.' When we fail, we don't just feel 'I made a mistake'; we feel 'I am a failure.' Grace is the only antidote to this mindset. It detaches our value from fluctuating performances and anchors it in God's unchanging acceptance.",
-                action: "List three achievements you've been proud of recently. Then, in your heart, gently set them down and say to God, 'Even without these, You still love me.'",
-                prayer: "Lord of Grace, I am too used to measuring my worth by my report card. Set me free, so I may truly know that in Your eyes, I don't need to prove anything; I only need to rest securely in Your love. In Jesus' name, Amen."
-            },
-            "2026-03-10": {
-                dateStr: "Mar 10 (Tue)",
-                title: "Facing Inner Guilt and Shame",
-                verse: "“Therefore, there is now no condemnation for those who are in Christ Jesus.” — Romans 8:1",
-                theology: "This is one of the most powerful declarations in the Bible! 'No condemnation' doesn't mean we haven't done wrong; it means that because Christ has already borne the punishment, God has officially declared us acquitted in His court. The enemy is called the 'accuser,' always using our past failures to condemn us, but God's grace has already covered it all.",
-                counseling: "Our hearts often hear two voices: one is a healthy remorse that prompts us to apologize and change; the other is a toxic shame that condemns us and makes us want to hide. The enemy uses this shame to make us feel unworthy of approaching God. You must understand that continuously whipping yourself over past mistakes does not make you holier; it only pushes you away from God. It takes courage to accept forgiveness.",
-                action: "Is there a past mistake you have confessed but still cannot forgive yourself for? Today, declare Romans 8:1 aloud over yourself: 'In Christ Jesus, [Your Name] is no longer condemned!'",
-                prayer: "Lord Jesus, Your blood has washed away my sins, but I often refuse to let myself off the hook. Break the lies that accuse me, and let me truly experience the freedom of Your non-condemnation. In Jesus' name, Amen."
-            },
-            "2026-03-11": {
-                dateStr: "Mar 11 (Wed)",
-                title: "Making Peace with Past Scars",
-                verse: "“You intended to harm me, but God intended it for good to accomplish what is now being done, the saving of many lives.” — Genesis 50:20",
-                theology: "Joseph was betrayed by his brothers, falsely accused, and forgotten, experiencing immense pain. When he finally held power, he chose not to seek revenge, but instead saw the grander picture God was weaving ('God intended it for good'). This doesn't mean God causes evil, but that God has the power to transform human evil into stepping stones for salvation.",
-                counseling: "Past scars can keep us trapped, forcing us to remain victims. But renewing our perspective through God's eyes is the key to healing. Reconciliation does not mean endorsing the harm done, nor does it necessarily mean restoring the relationship; it means deciding you will no longer let past hurts control your present. Like Joseph, elevate your view from 'How could they do this to me?' to 'How is God using this experience to shape who I am today?'",
-                action: "Recall a past setback or hurt. Try to write down: Even though this was painful, what did God teach me through it? Did it make me more empathetic?",
-                prayer: "Lord of Healing, past scars sometimes still ache. I choose to no longer cling to the identity of a victim. Give me Joseph's perspective to see how You can turn the curses in my life into blessings. In Jesus' name, Amen."
-            },
-            "2026-03-12": {
-                dateStr: "Mar 12 (Thu)",
-                title: "Accepting Your Current Season",
-                verse: "“There is a time for everything, and a season for every activity under the heavens: a time to plant and a time to uproot...” — Ecclesiastes 3:1-2",
-                theology: "God's creation moves in seasons. Spring has its blooming, and winter has its dormancy. We often wish our lives could remain in the fruitful season of harvest forever, but God knows that without the hidden waiting of winter, there can be no true growth. Accepting the 'appointed time' is acknowledging God's sovereignty, trusting that His pace for us is the best.",
-                counseling: "We frequently feel anxious: 'Everyone else is married, and I'm still single,' or 'Others are successful, and I'm still lost.' This restlessness happens because we refuse to accept our current 'season.' If your soul is currently in winter, don't force yourself to bloom; allow yourself to rest or reflect. Learning to rest in your current season prevents you from missing the gifts God has for you right now.",
-                action: "Identify what season of life you are currently in (a waiting season, a sprinting season, a pruning season, a healing season). Give thanks to God for this specific season today.",
-                prayer: "Lord of Time, forgive me for often being impatient, wanting to skip the processes You have arranged. Give me a peaceful heart to accept the season I am in, trusting that Your timing is always perfect. In Jesus' name, Amen."
-            },
-            "2026-03-13": {
-                dateStr: "Mar 13 (Fri)",
-                title: "Comparison: The Thief of Joy",
-                verse: "「各人應當察驗自己的行為；這樣，他所誇的就專在自己，不在別人了。」—— 加拉太書 6:4",
-                theology: "保羅提醒信徒，神對我們每個人的呼召與量給的地界都不同。在神國裡，沒有標準化的KPI。神不會拿你跟別人比，祂只會問你：「你有沒有忠心使用我給你的五千兩、兩千兩或一千兩？」看見別人的好，我們可以欣賞，但不需要將之變成貶低自己的利刃。",
-                counseling: "「比較」是偷走喜樂最大的賊。在網路時代，我們總拿自己真實的「幕後花絮」，去和別人精心修飾的「高光時刻」相比，這註定是一場穩輸的遊戲。當我們專注於別人擁有的，就會產生嫉妒與自卑；專注於神給自己的，就會產生感恩與踏實。",
-                action: "今天試著進行一天的「社群媒體禁食」，或是取消追蹤那些總是讓你感到焦慮、自卑的帳號。專注在你今天能完成的一件小事上。",
-                prayer: "主啊，我的眼目常常被別人的成功所吸引，以至於忽略了祢已經給我的恩典。求祢幫助我專注於祢為我量身打造的道路，不再比較。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-14": {
-                dateStr: "3月14日 (六)",
-                title: "在基督裡被更新的視角",
-                verse: "「若有人在基督裡，他就是新造的人，舊事已過，都變成新的了。」—— 哥林多後書 5:17",
-                theology: "「新造的人」不代表我們瞬間失去了所有的缺點、記憶或過往的傷痕。它意味著一種「地位上」的徹底改變，以及「視角上」的更新。在基督裡，我們不再被過去的失敗定義，而是被未來的盼望定義。這是一個持續「脫去舊人、穿上新人」的過程。",
-                counseling: "在生命成長中，幫助人建立新的「自我認知」非常重要。如果你一直告訴自己「我就是個脾氣暴躁的人」，你就會不斷重演這個劇本。但在基督裡，你有權利重寫劇本。你擁有一個新的身份，這賦予了你改變的能力與可能性。你不再是過去經歷的囚徒。",
-                action: "寫下一句你常對自己說的負面標籤（例如：我總是什麼都做不好）。然後在旁邊寫下基督對你的新宣告（例如：在基督裡，我凡事都能作）。",
-                prayer: "主耶穌，謝謝祢給我一個全新的開始。當舊有的思維模式又想拉扯我時，求聖靈提醒我，我是祢新造的兒女，充滿了光明的盼望。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-15": {
-                dateStr: "3月15日 (日)",
-                title: "愛，從設立健康的界線開始",
-                verse: "「你要保守你心，勝過保守一切，因為一生的果效是由心發出。」—— 箴言 4:23",
-                theology: "基督徒常有一種迷思，認為愛就是「無限度的忍讓與犧牲」。但箴言提醒我們，我們有責任「保守」神託付給我們的心。連耶穌在世時，也會在群眾極需祂的時候，選擇退到曠野去禱告（拒絕了眼前的需求）。沒有界線的愛，最終會變成耗竭與苦毒。",
-                counseling: "習慣討好別人的人，常把別人的需求置於自己之上，害怕說「不」會破壞關係。但健康的關係需要圍欄。設立界線不是自私，而是為了保護彼此的關係不被不合理的情感要求所摧毀。適當地說「不」，你才能夠給出真正有品質的「是」。",
-                action: "今天，嘗試對一個不合理或讓你感到耗竭的要求，溫和但堅定地說一次「不」或「我現在無法幫忙」。",
-                prayer: "主啊，賜我智慧與勇氣，去劃定健康的界線。讓我明白，我不能拯救所有人，只有祢才是救主。幫助我學會健康的愛。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-16": {
-                dateStr: "3月16日 (一)",
-                title: "饒恕：釋放那個被囚禁的自己",
-                verse: "「那時，彼得進前來，對耶穌說：『主啊，我弟兄得罪我，我當饒恕他幾次呢？到七次可以嗎？』耶穌說：『我對你說，不是到七次，乃是到七十個七次。』」—— 馬太福音 18:21-22",
-                theology: "彼得以為「七次」已經是極限的寬宏大量，但耶穌用「七十個七次」表明：饒恕不是數學題，而是一種生活方式。為什麼神如此看重饒恕？因為神知道，不饒恕就像我們自己喝下毒藥，卻希望對方死掉。饒恕，不是宣告對方的行為合理，而是宣告對方不再對你有控制權。",
-                counseling: "懷怨與苦毒，會把我們困在過去傷痛的牢籠裡。長期將苦毒悶在心裡，會反噬我們的身心健康。饒恕是一個「決定」，也是一個「過程」。它不代表你需要立刻信任對方，信任需要重新建立；但饒恕能切斷那條把你們綁在一起的仇恨鎖鏈，讓你重獲自由。",
-                action: "在禱告中，提著那個曾經傷害你的人的名字，對神說：「主啊，我選擇把對他的審判權交給祢，我決定放手。」",
-                prayer: "主耶穌，祢在十字架上饒恕了釘祢的人。求祢將這份超然的愛與力量賜給我。幫助我釋放心中的苦毒，讓我的靈魂重新獲得自由。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-17": {
-                dateStr: "3月17日 (二)",
-                title: "帶著同理心去傾聽",
-                verse: "「我親愛的弟兄們，這是你們所知道的。但你們各人要快快地聽，慢慢地說，慢慢地動怒。」—— 雅各書 1:19",
-                theology: "神給了我們兩個耳朵，卻只有一個嘴巴，這本身就是一個啟示。雅各的教導非常務實：「快快地聽，慢慢地說」。在溝通中，我們常急於表達自己的觀點，急於定罪或給建議，卻忽略了對方靈魂深處的呼喊。耶穌道成肉身，就是神對人類最極致的「傾聽」與同理。",
-                counseling: "陪伴中最有力量的不是完美的建議，而是「專注傾聽」與「體恤」。當人處於難過痛苦中時，他們需要的不是說教（「你應該怎麼做」），而是被看見與被理解（「我感受到你的痛苦」）。當你慢慢地說，你就在為對方創造一個安全的空間，愛就在其中流動。",
-                action: "今天在與配偶、孩子或同事對話時，忍住想插嘴給建議的衝動，單純地聽完他的話，並回應一句：「聽起來你真的覺得很……（同理他的情緒）。」",
-                prayer: "主啊，赦免我常常急於開口、急於防衛。求祢賜我一雙願意傾聽的耳朵，一顆充滿同理的心，讓我能成為身邊人安全的避風港。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-18": {
-                dateStr: "3月18日 (三)",
-                title: "家人的期待與神的呼召",
-                verse: "「耶穌說：『為什麼找我呢？豈不知我應當以我父的事為念嗎？』」—— 路加福音 2:49",
-                theology: "12歲的耶穌在聖殿中對焦急的父母說了這句話。這不是叛逆，而是一種深度的成熟。耶穌愛祂的肉身父母，順服他們，但祂清楚知道自己最終的身份是「天父的兒子」，祂的生命藍圖不由家族期待來決定。信仰有時會帶我們走向一條與家人期待不同的道路。",
-                counseling: "在華人文化中，家庭牽絆極深。許多人終其一生都在為了滿足父母的期待而活，壓抑了神給自己的恩賜與熱情。這代表我們還未能在愛中獨立。成熟的生命，是能夠在保持與家人愛的連結的同時，勇敢地堅持自己的界線與神的呼召，不被情感的牽絆所綁架。",
-                action: "回想一下，你目前的生活選擇，有多少是為了「神給你的熱情」，有多少只是為了「不讓家人失望」？在禱告中尋求平衡。",
-                prayer: "天父，謝謝祢賜給我家人，但也求祢賜我勇氣，當家人的期待與祢的呼召衝突時，我能溫和堅定地選擇以祢的事為念。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-19": {
-                dateStr: "3月19日 (四)",
-                title: "處理衝突：說真話的勇氣",
-                verse: "「惟用愛心說誠實話，凡事長進，連於元首基督。」—— 以弗所書 4:15",
-                theology: "教會中常有一種誤解，以為「相愛」就是「沒有衝突、表面和平」。但保羅教導我們要「用愛心說誠實話（Truth in love）」。只有愛心沒有真理，會變成溺愛與妥協；只有真理沒有愛心，會變成定罪與傷害。真實的生命成長，往往需要經過健康的衝突與坦誠的溝通。",
-                counseling: "害怕衝突的人，常採取退縮或「消極抵抗」（例如酸言酸語、冷戰）的方式，這反而讓關係更加受損。健康的溝通是勇敢而溫和的表達：清楚、誠實地表達自己的感受和需求，同時也尊重對方的感受。用「我感到...」來取代「你總是...」，是說誠實話的第一步。",
-                action: "是否有某個小摩擦你一直悶在心裡？今天試著用「當事情發生時，我感到...」的句型，與當事人進行一次溫和的對話。",
-                prayer: "真理的主，賜我用愛心說誠實話的勇氣。讓我不再用虛假的和平來掩飾問題，而是願意在真理與愛中，建立真實且深刻的關係。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-20": {
-                dateStr: "3月20日 (五)",
-                title: "在孤單中經歷與神結連",
-                verse: "「神叫孤獨的有家，使被囚的出來享福；惟有悖逆的住在乾燥之地。」—— 詩篇 68:6",
-                theology: "孤單，是人類墮落後失去與神、與人連結的後果。然而，神的應許是「叫孤獨的有家」。這個「家」不僅是指屬世的家庭，更是指在基督裡所建立的屬靈群體（教會），以及回到天父懷抱中的歸屬感。神是看顧孤兒寡婦的神，祂最靠近那些心靈破碎、無人理解的靈魂。",
-                counseling: "現代人身處高度連結的網路世界，卻經歷著前所未有的「人群中的孤單」。你可以在人群中依然感到無人懂你。孤單本身並不可怕，可怕的是我們用工作、成癮或不健康的關係來逃避孤單。學會與自己獨處，在安靜中讓神那全然接納的愛來充滿你，孤單就能轉化為神聖的獨處時刻。",
-                action: "今天刻意享受一段獨處時光（喝杯咖啡或散步）。不要滑手機逃避，在心裡對神說：「主啊，我知道祢現在正陪著我。」",
-                prayer: "親愛的天父，有時我感到深深的孤單與不被理解。求祢用祢的愛擁抱我，讓我在祢裡面找到真正的歸屬感，並引導我進入真實的生命團契中。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-21": {
-                dateStr: "3月21日 (六)",
-                title: "成為別人的「生命盟友」",
-                verse: "「兩個人總比一個人好，因為二人勞碌同得美好的果效。若是跌倒，這人可以扶起他的同伴；若是孤身跌倒，沒有別人扶起他來，這人就有禍了。」—— 傳道書 4:9-10",
-                theology: "基督教信仰從來不是一場獨角戲。耶穌呼召門徒時，是呼召一個「群體」。神深知我們人性的脆弱與盲點，我們需要有人在我們軟弱時扶我們一把，在我們偏離時說誠實話。屬靈的同伴（生命盟友）是神賜給我們抵擋仇敵攻擊最有效的防線。",
-                counseling: "生命中的同行者，是幫助我們走過低谷、不至絕望的關鍵。男人特別容易在成年後失去深交的朋友。我們需要刻意經營那些「可以暴露軟弱」的關係。一個好的盟友，不需要幫你解決所有問題，只需要在你哭泣時遞上衛生紙，並為你禱告。",
-                action: "傳個訊息給一位你信任的屬靈夥伴或朋友，告訴他：「謝謝你出現在我的生命中。」如果可能，約個時間一起喝茶禱告。",
-                prayer: "主啊，謝謝祢知道我的軟弱。求祢在我的生命中賜下真實的盟友，也求祢塑造我，讓我能成為別人跌倒時，那個願意伸出手扶持他的同伴。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-22": {
-                dateStr: "3月22日 (日)",
-                title: "從「勞苦愁煩」到「職場祭壇」",
-                verse: "「無論做什麼，都要從心裡做，像是給主做的，不是給人做的。」—— 歌羅西書 3:23",
-                theology: "工作並不是墮落後的咒詛，在伊甸園裡，亞當就已經有了管理修理的工作。罪所帶來的是工作中的「勞苦與荊棘」。保羅提醒我們，提升工作價值的秘訣，在於改變工作的「對象」。當我們把每一次打字、每一場會議、每一次服務，都視為獻給神的祭物時，平凡的工作就具有了神聖的意義。",
-                counseling: "「工作無力感」的根本原因之一，是「意義感的喪失」。當我們覺得自己只是為了一份薪水，或是為了一個苛刻的老闆賣命時，動力很快就會枯竭。將視角轉換為「我是為神而做」，能重新奪回你內在的安穩。你的老闆不再是你情緒的終極裁決者，神才是。",
-                action: "明天上班前，在辦公桌前做一個簡短的禱告：「主啊，今天我把這張桌子當作祭壇，願我今天的工作能榮耀祢。」",
-                prayer: "主耶穌，我常覺得工作充滿了無奈與勞苦。求祢更新我的眼光，讓我看見祢呼召我進入職場的意義。幫助我帶著卓越與喜樂，為祢而做。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-23": {
-                dateStr: "3月23日 (一)",
-                title: "對抗拖延背後的完美主義",
-                verse: "「看風的，必不撒種；望雲的，必不收割。」—— 傳道書 11:4",
-                theology: "傳道書的作者觀察到一個現象：如果農夫非要等到天氣「完美」才肯撒種，他最終將一無所獲。這世界本就不完美，充滿變數。神呼召我們在不確定的環境中憑信心行動，而不是等到一切條件都萬無一失才肯起步。信心，就是在看不清全貌時仍願意邁出第一步。",
-                counseling: "許多時候，拖延的習慣根源不是懶惰，而是「過度追求完美」與「害怕失敗」。因為害怕做不好，所以我們乾脆選擇「不開始」，藉此逃避心中的不安。打破拖延的良方是「接納足夠好」。允許自己先寫出一份很爛的初稿，允許自己犯錯。行動本身就能打破焦慮的迴圈。",
-                action: "選一件你拖延已久的事情。告訴自己：「我現在只要做5分鐘就好，而且允許它做得很粗糙。」馬上開始。",
-                prayer: "創造的主，原諒我常常想要掌控一切的完美。求祢打破我害怕失敗的驕傲，賜我行動的勇氣。讓我願意在不完美中撒種，將結果交託給祢。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-24": {
-                dateStr: "3月24日 (二)",
-                title: "金錢焦慮的解藥",
-                verse: "「所以，不要憂慮說，吃什麼？喝什麼？穿什麼？……你們需用的這一切東西，你們的天父是知道的。你們要先求他的國和他的義，這些東西都要加給你們了。」—— 馬太福音 6:31-33",
-                theology: "耶穌沒有否定我們對物質的「需要」，祂說天父「知道」。耶穌反對的是被物質「轄制」（憂慮）。在羅馬帝國重稅的時代，平民的經濟壓力極大，但耶穌提出了顛覆性的次序：先求神的國。這不是一種條件交換，而是在教導我們：只有當神成為我們最大的安全感來源時，金錢才不會成為我們的主人。",
-                counseling: "對金錢的擔憂往往根源於「缺乏的安全感」——總覺得資源不夠，我必須拼命抓取才能生存。這種心態會讓人變得自私且緊繃。解藥是培養相信神會供應的知足心態，相信有一位良善的父親在看顧。慷慨的奉獻與給予，是打破金錢轄制最有效的練習。",
-                action: "今天刻意用一筆小錢去祝福別人（例如請同事喝杯咖啡，或捐款給有需要的機構），在給予中體驗不再被擔憂控制的自由。",
-                prayer: "供應的耶和華以勒，我承認金錢常使我失去平安。求祢赦免我對祢的不信。幫助我重新調整生命的次序，先求祢的國，相信祢必信實地供應我一切所需。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-25": {
-                dateStr: "3月25日 (三)",
-                title: "在不公義的環境中持守良善",
-                verse: "「世人哪，耶和華已指示你何為善。他向你所要的是什麼呢？只要你行公義，好憐憫，存謙卑的心，與你的神同行。」—— 彌迦書 6:8",
-                theology: "面對充滿壓榨與不公義的社會，先知彌迦指出神的心意。神不要繁複的宗教儀式，祂要的是我們在日常生活中體現祂的性情。在黑暗的職場或制度中，「行公義、好憐憫」往往意味著要付出代價、甚至吃虧。但「存謙卑的心與神同行」，提醒我們：我們不是孤軍奮戰的道德英雄，而是依靠神恩典的同行者。",
-                counseling: "在充滿辦公室政治或不公的環境中，人很容易產生良心的虧欠或對世界失去盼望。我們可能會想：「既然大家都這樣，我為什麼要堅持？」持守良善需要極大的內在力量。請記住，你的善良不是為了改變所有人，而是為了保護你自己的靈魂不被世界同化。",
-                action: "今天在工作或生活中，當你面對一個可以選擇「隨波逐流」或「堅持正直」的小決定時，選擇那件雖然麻煩但正確的事。",
-                prayer: "公義的主，世界常讓我感到無力與憤怒。求祢賜我智慧與勇敢，在不公義的環境中，依然能行公義、好憐憫，並且謙卑地緊緊跟隨祢的腳步。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-26": {
-                dateStr: "3月26日 (四)",
-                title: "枯竭時，容許自己喊「停」",
-                verse: "「他在羅騰樹下睡著了。有一個天使拍他，說：『起來吃吧！』……耶和華的使者第二次來拍他，說：『起來吃吧！因為你當走的路甚遠。』」—— 列王紀上 19:5, 7",
-                theology: "以利亞在迦密山大勝後，卻因耶洗別的恐嚇而崩潰求死。神沒有給他一篇長篇大論的講道，也沒有責備他軟弱。神做了一個最溫柔的照顧：讓他好好睡覺，並派天使烤餅給他吃。神知道，有時候屬靈的枯竭，其實是身體與心理的透支。照顧好神所賜的身體，也是一種屬靈操練。",
-                counseling: "我們常忽略身體的警訊（如失眠、胃痛、無故落淚），直到身心徹底垮掉。我們以為自己是超人，但神知道我們不過是塵土。容許自己軟弱，容許自己喊「停」，是極大的智慧。有時候，最屬靈的決定，就是取消一個會議，去吃一頓好吃的，然後睡個好覺。",
-                action: "檢視你今天的身體狀態。如果感到緊繃疲憊，今晚請提早一小時上床睡覺，不要滑手機，讓大腦與身體真實地休息。",
-                prayer: "慈愛的天父，謝謝祢全然了解我的脆弱。當我透支、枯竭時，求祢幫助我放下硬撐的面具，接受祢的餵養與安息。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-27": {
-                dateStr: "3月27日 (五)",
-                title: "平凡日子的神聖意義",
-                verse: "「誰藐視這日的事為小呢？這七眼乃是耶和華的眼睛，遍察全地，見所羅巴伯手拿線鉈就歡喜。」—— 撒迦利亞書 4:10",
-                theology: "以色列人重建聖殿時，過程緩慢且充滿攔阻。那些見過舊聖殿榮耀的老年人，看著現在微小的根基，不禁悲哀哭泣。但神說，不要藐視這些看似微小、平凡的開端與日常工作。神看著所羅巴伯拿著測量工具（線鉈）一點一滴地建造，神的心就歡喜。神在乎我們的每一天。",
-                counseling: "多數人的生活是由柴米油鹽、通勤、回Email等「平凡無奇」的小事組成。我們容易陷入「無聊感」，渴望戲劇性的大突破。但能夠在日常瑣事中找到節奏與意義的人，生命是最踏實的。偉大的品格與深厚的關係，都是在這些日復一日的微小忠心中建立起來的。",
-                action: "今天在做一件最日常的家務（如洗碗、摺衣服）時，帶著感恩的心去做，將這件小事當作獻給神的敬拜。",
-                prayer: "主啊，我常渴望轟轟烈烈的成就，卻厭倦了平凡的日常。求祢開啟我的眼，讓我看見隱藏在柴米油鹽中的神聖，讓我在每一件小事上對祢忠心。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-28": {
-                dateStr: "3月28日 (六)",
-                title: "將你的重擔交託給祂",
-                verse: "「你們要將一切的憂慮卸給神，因為他顧念你們。」—— 彼得前書 5:7",
-                theology: "「卸給」這個詞在原文中是一個粗重的動作，就像把背上沉重的麻布袋甩到另一頭驢子身上。我們常以為神只管生死大事，不管我們生活中的小煩惱。但彼得說要將「一切」憂慮都卸給祂。為什麼可以這樣做？背後的原因極其溫柔：「因為祂顧念你們。」",
-                counseling: "憂慮就像是在腦中不斷播放的負面電影，消耗著我們寶貴的心力。在牧養中，我們常鼓勵弟兄姊妹進行「心思的卸載」，把腦中的煩惱寫下來交給神。交託不是什麼都不做，而是盡了本分後，拒絕讓結果折磨自己，知道有一位全能的神在掌管。",
-                action: "拿出一張紙，寫下你目前最擔心的三件事。然後在紙上畫一個十字架，將紙揉碎丟掉，象徵你已經把這些重擔卸給了神。",
-                prayer: "親愛的天父，我的肩膀扛了太多不屬於我的重擔，壓得我喘不過氣。今天我選擇將這些憂慮連同我的無能為力，全都卸給祢，因為我知道祢深深愛著我。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-29": {
-                dateStr: "3月29日 (日)",
-                title: "棕樹節：承認我們對神的誤解",
-                verse: "「第二天，有許多上來過節的人，聽見耶穌將到耶路撒冷，就拿著棕樹枝出去迎接他，喊著說：『和散那！奉主名來的是以色列王，是應當稱頌的！』」—— 約翰福音 12:12-13",
-                theology: "這是受難週的第一天（棕樹節）。群眾熱烈歡迎耶穌，是因為他們期待一位政治軍事上的彌賽亞，能帶領他們推翻羅馬帝國。然而耶穌卻騎著代表和平的驢駒進城。當群眾發現耶穌不符合他們的期待，甚至被釘上十字架時，他們的「和散那」在幾天後變成了「釘死祂」。",
-                counseling: "我們是否也常像這些群眾一樣，把自己的期待強加在上帝身上？當上帝沒有按照我們的劇本演出（沒有醫治疾病、沒有挽回婚姻、沒有給予升遷）時，我們就感到幻滅與憤怒。成熟的信仰，是承認上帝的意念高過我們的意念，願意放下那個「有求必應的神明」的幻想，去愛那位真實的主。",
-                action: "反思一下：你有沒有因為神沒有照你的期待成就某件事，而在心裡對祂生悶氣？今天試著向神坦白這個情緒，並求祂擴張你的眼界。",
-                prayer: "主耶穌，我承認我常常只愛那個「賜福」的祢，卻抗拒那個「背十字架」的祢。求祢赦免我用自私的期待來框住祢。讓我願意順服祢的主權，即使我現在不明白。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-30": {
-                dateStr: "3月30日 (一)",
-                title: "為什麼好人會受苦？",
-                verse: "「我從前風聞有你，現在親眼看見你。」—— 約伯記 42:5",
-                theology: "約伯失去了財產、兒女和健康，他的朋友們試圖用一套「善有善報、惡有惡報」的因果神學來解釋他的苦難（你一定犯了罪）。但上帝最後在旋風中顯現時，並沒有回答約伯「為什麼受苦」，而是向約伯展示了祂創造宇宙的浩大。約伯的滿足，不是因為他得到了答案，而是因為他「遇見了神」。",
-                counseling: "面對巨大的苦難與失去的痛楚，人類本能地想尋找「為什麼」，彷彿找到原因就能減輕痛苦。但有時候，過度尋求原因會變成對受苦者的二次傷害。在陪伴哀傷者時，陪伴遠比解答重要。苦難是一個奧秘，神沒有應許我們免於苦難，但祂應許在苦難中與我們同在。",
-                action: "今天如果你身邊有人正在受苦，不要急著給他經文或大道理。單純地陪伴他，給他一個擁抱，或為他買一杯熱飲。",
-                prayer: "全能的主，生命中有太多的「為什麼」我找不到答案。但在這一切的迷惘與痛苦中，求祢讓我深切經歷祢的同在。讓祢的陪伴，成為我走下去的力量。奉耶穌的名禱告，阿們。"
-            },
-            "2026-03-31": {
-                dateStr: "3月31日 (二)",
-                title: "在客西馬尼園的極度哀傷",
-                verse: "「於是帶著彼得和西庇太的兩個兒子同去，就憂愁起來，極其悲傷，便對他們說：『我心裡甚是憂傷，幾乎要死；你們在這裡等候，和我一同警醒。』」—— 馬太福音 26:37-38",
-                theology: "在面臨十字架前夕，耶穌經歷了極度的恐懼與憂傷，甚至汗如血滴。祂將要承受的不僅是肉體的酷刑，更是要背負全人類的罪，被聖潔的父神轉臉不顧。耶穌沒有隱藏祂的情緒，祂坦誠地向門徒表達了祂的脆弱（幾乎要死）。這位大祭司，深知我們一切的軟弱與痛苦。",
-                counseling: "華人常認為表達感受是不成熟的表現，基督徒甚至會因為自己落入低潮或恐懼而產生罪惡感，以為自己「沒信心」。但耶穌在客西馬尼園的表現告訴我們：痛苦與極度的憂傷是人性的一部分，並不違背信仰。健康的信仰不是假裝沒有痛苦，而是帶著痛苦來到天父面前。",
-                action: "今天允許自己接納一個負面情緒（悲傷、焦慮或憤怒）。不要壓抑它，對神說：「主啊，我現在真的很難過，求祢陪我。」",
-                prayer: "受苦的耶穌，謝謝祢沒有向我展示一個冷酷無情的完美典範，而是讓我看見祢的眼淚與掙扎。當我深陷憂傷幾乎要死時，我知道祢完全懂我。求祢與我一同警醒。奉耶穌的名禱告，阿們。"
-            },
-            "2026-04-01": {
-                dateStr: "4月1日 (三)",
-                title: "被背叛的痛與耶穌的同行",
-                verse: "「原來不是仇敵辱罵我，若是仇敵，還可忍耐；……不料是你！你原與我平等，是我的同伴，是我知己的朋友！」—— 詩篇 55:12-13",
-                theology: "受難週的星期三，傳統上被稱為「背叛日」，因為猶大在這天與祭司長商議出賣耶穌。耶穌被自己教導了三年、洗過腳的親密門徒用「親嘴」的記號出賣。詩篇55篇生動描寫了這種錐心之痛。最深的傷害，往往來自最親近的人。耶穌代替我們，喝盡了這杯被背叛的苦水。",
-                counseling: "關係中的重擊特別是遭逢背叛（如伴侶出軌、摯友出賣），會徹底摧毀一個人對世界的信任感，讓人變得多疑且封閉。修復這種痛楚極度艱難。但在這個過程中，最大的安慰是：耶穌經歷過。當你痛徹心扉時，你可以確信，坐在你旁邊的那位神，身上也有著被朋友刺傷的疤痕。",
-                action: "為一個曾經辜負你信任的人做一個簡短的禱告（即使你現在還無法完全饒恕）。求神醫治你在這段關係中受損的信任感。",
-                prayer: "主耶穌，祢懂那種被最信任的人背後插刀的痛。當我因為被背叛而感到憤怒、心碎，甚至想封閉心扉時，求祢受傷的手擁抱我，用祢不離不棄的愛來醫治我。奉耶穌的名禱告，阿們。"
-            },
-            "2026-04-02": {
-                dateStr: "4月2日 (四)",
-                title: "濯足節：甘心服事那不可愛的",
-                verse: "「我是你們的主，你們的夫子，尚且洗你們的腳，你們也當彼此洗腳。」—— 約翰福音 13:14",
-                theology: "在最後的晚餐上，耶穌脫下外衣，拿著毛巾與水盆，做起最低賤奴隸的工作——為門徒洗腳。更令人震撼的是，這群門徒中包含了剛剛還在爭論誰為大的人，以及即將出賣祂的猶大和三次不認祂的彼得。耶穌的愛，不是因為他們「配得」，而是出於祂自己愛的本質（愛他們到底）。",
-                counseling: "在人際關係中，我們常陷入「交換式」的愛：你對我好，我才對你好；你可愛，我才愛你。但這種愛很容易耗盡。耶穌的洗腳提醒我們，真正的服事與愛，是從神那裡領受了無條件的接納後，自然流露的結果（愛是滿溢出來的）。只有當我們確信自己是被神深愛的，我們才有能力去愛那些「不可愛」的人。",
-                action: "今天刻意為身邊一位平常被忽視，甚至有點難相處的人，做一件微小的服事（例如：幫他倒杯水，或給他一個真誠的微笑）。",
-                prayer: "謙卑的主，祢竟然願意為要出賣祢的人洗腳。我的愛太狹隘、太計較了。求祢的愛先充滿我、洗淨我，讓我能帶著祢的毛巾與水盆，去服事身邊的人。奉耶穌的名禱告，阿們。"
-            },
-            "2026-04-03": {
-                dateStr: "4月3日 (五)",
-                title: "受難日：那撕裂的幔子與愛",
-                verse: "「耶穌大聲喊叫，氣就斷了。殿裡的幔子從上到下裂為兩半。」—— 馬可福音 15:37-38",
-                theology: "聖殿中的幔子厚達數十公分，將象徵神同在的「至聖所」與人隔絕，宣告著罪人無法親近聖潔的神。但當耶穌在十字架上斷氣的那一刻，這沉重的幔子「從上到下」（是神的手親自撕裂的）裂為兩半！耶穌用祂的身體為我們開了一條又新又活的路。一切的阻隔、定罪與羞辱，都在這一天被徹底粉碎。",
-                counseling: "我們每個人的內心，都有一道自我保護的「幔子」，用來隱藏我們的不堪、羞愧與罪疚。我們害怕被人看透，更害怕被神看見後會遭到拒絕。但十字架宣告：神已經看見了你最糟糕的一面，並且決定替你承擔代價。你不再需要躲藏，恩典的大門已經為你敞開。",
-                action: "在今天（受難日），找一段安靜的時間，安靜思想十字架的愛。對自己宣告：「神已經撕裂了幔子，我能坦然無懼地被祂完全接納。」",
-                prayer: "為我捨命的主耶穌，看著十字架，我才知道我的罪有多重，也才知道祢的愛有多深。謝謝祢用祢的血為我鋪平了回家的路。我願一生為祢而活。奉耶穌的名禱告，阿們。"
-            },
-            "2026-04-04": {
-                dateStr: "4月4日 (六)",
-                title: "靜默日：在看似無望中等候",
-                verse: "「那日是預備日，安息日也快到了。……她們就回去，預備了香料香膏。她們在安息日，便遵著誡命安息了。」—— 路加福音 23:54, 56",
-                theology: "這是復活節前一天的「聖週六」。耶穌被埋在墳墓裡，洞口被大石頭封死，門徒陷入了絕對的絕望與迷惘中。對門徒來說，這一天是死寂的。他們不知道明天會發生什麼，他們只能按著規矩「安息」。但他們不知道的是，在他們看不見的幽暗中，上帝正在成就宇宙中最偉大的反擊。",
-                counseling: "在生命中，我們常經歷這種「神聖的星期六」——我們禱告了，但事情沒有轉機；我們努力了，但似乎被困在墳墓裡。這種過渡的曠野是最難熬的。但這一天教導我們：神的沉默不代表神的不在場；事情尚未解決，不代表神沒有在動工。在黑暗中持守安息與等候，是極大的信心。",
-                action: "如果你目前正處於某個看不見希望的困境中，今天試著停止掙扎與抱怨。安靜等候，相信神在幽暗中依然掌權。",
-                prayer: "主啊，有時候我的人生就像困在星期六的墳墓前，看不見一點光亮。求祢賜我等候的耐心與安息的勇氣，讓我知道即使在最深的黑暗中，祢依然在工作。奉耶穌的名禱告，阿們。"
-            },
-            "2026-04-05": {
-                dateStr: "4月5日 (日)",
-                title: "復活節：那塊石頭已經輥開",
-                verse: "「她們彼此說：『誰給我們把石頭從墓門輥開呢？』那石頭原來很大，她們抬頭一看，卻見石頭已經輥開了。」—— 馬可福音 16:3-4",
-                theology: "哈利路亞，主復活了！婦女們帶著香膏，滿心憂愁地擔心著那塊擋路的大石頭。但當她們走到時，卻發現神已經先動工了，石頭已經被輥開，墳墓是空的！復活節宣告了死亡不是終點，罪惡不能勝過恩典。耶穌的復活，保證了我們這必朽壞的生命，也將要經歷那不朽壞的榮耀更新。",
-                counseling: "什麼是你生命中那塊「沉重、推不開的大石頭」？是長期的病痛、破裂的關係、還是無法擺脫的軟弱？復活的大能不僅是未來上天堂的保證，更是今天能介入你生命、帶來絕境中蛻變的力量。基督既已戰勝了最大的敵人——死亡，就沒有什麼能攔阻祂將生命賜給你。",
-                action: "今天向身邊的人大聲宣告一句：「主耶穌復活了！」並回想一件神曾經在你生命中「輥開石頭」（解決不可能的難題）的經歷，獻上讚美。",
-                prayer: "得勝的救主耶穌，我讚美祢！祢勝過了死亡的毒鉤，從墳墓裡復活了。求復活的大能今天充滿我的生命，將我從一切的恐懼、絕望與死寂中拯救出來，活出充滿榮耀盼望的新生命！奉主耶穌得勝的名禱告，阿們！"
-            }
-        };
+    <!-- Sidebar (Navigation) -->
+    <aside id="sidebar" class="bg-white border-r border-slate-200 w-full md:w-80 h-full fixed md:relative z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col pt-16 md:pt-0">
+        <div class="p-6 border-b border-slate-100 hidden md:block bg-indigo-50 relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 transform translate-x-4 -translate-y-4">
+                <i data-lucide="sun" class="w-32 h-32"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-indigo-900 serif-text mb-2 relative z-10">Lent to Easter</h1>
+            <p class="text-sm text-indigo-700 font-medium relative z-10">Spiritual Journey 2026</p>
+        </div>
+        <div class="overflow-y-auto flex-1 hide-scrollbar p-3 space-y-1" id="dateList">
+            <!-- Date items will be injected here via JS -->
+        </div>
+    </aside>
 
-        const outlineData = [
+    <!-- Overlay for mobile sidebar -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900 bg-opacity-50 z-30 hidden md:hidden transition-opacity"></div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-full overflow-y-auto bg-[#FAFAFA] pt-16 md:pt-0 w-full relative scroll-smooth">
+        <div class="max-w-3xl mx-auto px-5 py-8 md:py-12 pb-24">
+            
+            <div id="contentPlaceholder" class="hidden flex-col items-center justify-center h-full text-slate-400 mt-32">
+                <i data-lucide="book-open" class="w-16 h-16 mb-4 opacity-50"></i>
+                <p>Select a date to begin your devotional.</p>
+            </div>
+
+            <article id="devotionalContent" class="fade-in bg-white p-6 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 hidden relative">
+                <header class="mb-10 text-center border-b border-slate-100 pb-8">
+                    <span id="displayDate" class="text-indigo-600 font-bold tracking-wider uppercase text-xs sm:text-sm mb-3 block"></span>
+                    <h2 id="displayTitle" class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 serif-text leading-tight text-balance"></h2>
+                </header>
+
+                <div class="space-y-10 sm:space-y-12">
+                    <!-- Theme Verse -->
+                    <section class="relative bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <div class="absolute -left-3 -top-4 text-indigo-200 bg-white rounded-full">
+                            <i data-lucide="quote" class="w-10 h-10 fill-current"></i>
+                        </div>
+                        <h3 class="flex items-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
+                            <i data-lucide="book-marked" class="w-4 h-4 mr-2 text-indigo-500"></i> Theme Verse
+                        </h3>
+                        <blockquote id="displayVerse" class="text-lg sm:text-xl md:text-2xl text-slate-800 italic serif-text leading-relaxed pl-2">
+                        </blockquote>
+                    </section>
+
+                    <!-- Theology & Insight -->
+                    <section>
+                        <h3 class="flex items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 serif-text">
+                            <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-amber-500"></i> Theology & Insight
+                        </h3>
+                        <p id="displayTheology" class="text-slate-600 leading-loose text-[1.05rem]"></p>
+                    </section>
+
+                    <!-- Heart & Life -->
+                    <section>
+                        <h3 class="flex items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 serif-text">
+                            <i data-lucide="heart" class="w-5 h-5 mr-2 text-rose-500"></i> Heart & Life
+                        </h3>
+                        <p id="displayHeart" class="text-slate-600 leading-loose text-[1.05rem]"></p>
+                    </section>
+
+                    <!-- Practical Action -->
+                    <section class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 shadow-inner">
+                        <h3 class="flex items-center text-lg font-bold text-indigo-900 mb-3 serif-text">
+                            <i data-lucide="footprints" class="w-5 h-5 mr-2 text-indigo-600"></i> Practical Action
+                        </h3>
+                        <p id="displayAction" class="text-indigo-800 leading-relaxed"></p>
+                    </section>
+
+                    <!-- Closing Prayer -->
+                    <section class="bg-[#F8FAFC] p-6 rounded-xl border border-slate-200 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-5 transform rotate-12">
+                            <i data-lucide="sun" class="w-24 h-24"></i>
+                        </div>
+                        <h3 class="flex items-center text-lg font-bold text-slate-800 mb-3 serif-text relative z-10">
+                            <i data-lucide="hands-praying" class="w-5 h-5 mr-2 text-slate-500"></i> Closing Prayer
+                        </h3>
+                        <p id="displayPrayer" class="text-slate-600 leading-relaxed italic relative z-10"></p>
+                    </section>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        // Full Devotional Dataset (Feb 28 to April 5)
+        const devotionals = [
             {
-                week: "預備篇：進入大齋期",
-                days: [
-                    { day: 0, date: "2/28 (六)", title: "心靈的除草與倒空", hasContent: true, key: "2026-02-28" }
-                ]
+                date: "2026-02-28", displayDate: "February 28 (Saturday)", title: "Preparation: Weeding and Emptying the Soul",
+                verse: '"Rend your heart and not your garments. Return to the LORD your God..." — Joel 2:13',
+                theology: "In church tradition, \"Lent\" is a preparation period of about 40 days (excluding Sundays) before Easter. This is not about exchanging suffering for God's love, but intentionally \"emptying\" oneself and clearing the weeds in our lives. God values not our outward religious behaviors, but our true inward repentance and turning back.",
+                heart: "Modern life is full of \"additions\"—buying more things, packing more schedules, absorbing more information. Our souls are like an overcrowded closet where even God cannot squeeze in. Lent is a spiritual \"decluttering.\" By intentionally fasting or breaking a habit, we perceive our deep cravings and turn this longing toward God.",
+                action: "Set a specific \"intentional letting go\" action for the next 36 days. It could be reducing phone scrolling by 30 minutes daily, or quitting a daily sugary drink, and using the saved time to pray.",
+                prayer: "Lord, my heart is too full, so full that I cannot hear Your voice. Give me the courage to honestly face the substitutes I use to fill my emptiness. Help me to empty myself so Your grace has room. Amen."
             },
             {
-                week: "第一週：與神重新對齊 (3/1 - 3/7)",
-                days: [
-                    { day: 1, date: "3/1 (日)", title: "誰是你生命的老闆？", hasContent: true, key: "2026-03-01" },
-                    { day: 2, date: "3/2 (一)", title: "停下來，你才有空間被愛", hasContent: true, key: "2026-03-02" },
-                    { day: 3, date: "3/3 (二)", title: "拿下面具的安全感", hasContent: true, key: "2026-03-03" },
-                    { day: 4, date: "3/4 (三)", title: "在靜默中聽見微小的聲音", hasContent: true, key: "2026-03-04" },
-                    { day: 5, date: "3/5 (四)", title: "恐懼與信心的拔河", hasContent: true, key: "2026-03-05" },
-                    { day: 6, date: "3/6 (五)", title: "當禱告似乎沒有回應", hasContent: true, key: "2026-03-06" },
-                    { day: 7, date: "3/7 (六)", title: "安息日：重整生命的節奏", hasContent: true, key: "2026-03-07" }
-                ]
+                date: "2026-03-01", displayDate: "March 1 (Sunday)", title: "Who is the Boss of Your Life?",
+                verse: '"I am the Alpha and the Omega," says the Lord God, "who is, and who was, and who is to come, the Almighty." — Revelation 1:8',
+                theology: "We often think \"servant\" refers to church leaders, but John says this book is written to \"his servants\". In modern society, we dream of being the \"boss\" of our own lives. But a servant has no personal agenda; their whole life is to satisfy the master's will. Surrendering sovereignty to God is not a restriction, but a profound release.",
+                heart: "Many people deeply trapped in worry often try to control outcomes but lack the power to do so. The spiritual depletion in our lives often comes from trying to snatch the \"boss\" position, yet being unable to bear its weight. Practicing \"letting go\" and acknowledging the limits of our own abilities is the very starting point of peace.",
+                action: "When facing an unexpected situation today, say to yourself in your heart: \"I am not the boss; I am serving the eternal Almighty.\" Feel the relaxation in your shoulders.",
+                prayer: "Dear Lord, I often act like an anxious orphan, wanting to control everything by myself. Today, I am willing to lay down the pride of wanting to be my own boss and find rest in Your sovereignty. Amen."
             },
             {
-                week: "第二週：擁抱真實的自我 - 自我價值 (3/8 - 3/14)",
-                days: [
-                    { day: 8, date: "3/8 (日)", title: "你比你想像的更尊貴", hasContent: true, key: "2026-03-08" },
-                    { day: 9, date: "3/9 (一)", title: "不再用成就定義自己", hasContent: true, key: "2026-03-09" },
-                    { day: 10, date: "3/10 (二)", title: "直面內心的內疚與羞愧", hasContent: true, key: "2026-03-10" },
-                    { day: 11, date: "3/11 (三)", title: "與過去的傷痕和解", hasContent: true, key: "2026-03-11" },
-                    { day: 12, date: "3/12 (四)", title: "接納自己目前的季節", hasContent: true, key: "2026-03-12" },
-                    { day: 13, date: "3/13 (五)", title: "比較：偷走喜樂的賊", hasContent: true, key: "2026-03-13" },
-                    { day: 14, date: "3/14 (六)", title: "在基督裡被更新的視角", hasContent: true, key: "2026-03-14" }
-                ]
+                date: "2026-03-02", displayDate: "March 2 (Monday)", title: "Only When You Stop Do You Have Space to Be Loved",
+                verse: '"He says, ‘Be still, and know that I am God; I will be exalted among the nations...’" — Psalm 46:10',
+                theology: "This verse is often treated as a placebo for curing insomnia, but its context is actually a critical moment full of turmoil. God issues a counter-intuitive command: \"Be still\" (rest)! God tells us: His victory does not need to be maintained by our constant running around.",
+                heart: "\"Busyness\" has become a medal of self-worth. Feeling uneasy as soon as we stop indicates hidden inner emptiness and a fear of being left behind. But love cannot be exchanged for labor. Only when you temporarily lay down your defenses and stop proving yourself can you experience unconditionally accepted love.",
+                action: "Intentionally schedule 15 minutes of \"unproductive time\" today. Don't scroll on your phone or solve problems. Simply be quiet and say to God: \"Lord, I am doing nothing right now, but I know You still love me.\"",
+                prayer: "Lord, teach me the lesson of rest. My heart often feels wound up like a clock, fearing I am not good enough. I am willing to let go and solely enjoy the peace in Your presence. Amen."
             },
             {
-                week: "第三週：在關係中操練愛 - 人際與家庭 (3/15 - 3/21)",
-                days: [
-                    { day: 15, date: "3/15 (日)", title: "愛，從設立健康的界線開始", hasContent: true, key: "2026-03-15" },
-                    { day: 16, date: "3/16 (一)", title: "饒恕：釋放那個被囚禁的自己", hasContent: true, key: "2026-03-16" },
-                    { day: 17, date: "3/17 (二)", title: "帶著同理心去傾聽", hasContent: true, key: "2026-03-17" },
-                    { day: 18, date: "3/18 (三)", title: "家人的期待與神的呼召", hasContent: true, key: "2026-03-18" },
-                    { day: 19, date: "3/19 (四)", title: "處理衝突：說真話的勇氣", hasContent: true, key: "2026-03-19" },
-                    { day: 20, date: "3/20 (五)", title: "在孤單中經歷與神結連", hasContent: true, key: "2026-03-20" },
-                    { day: 21, date: "3/21 (六)", title: "成為別人的「生命盟友」", hasContent: true, key: "2026-03-21" }
-                ]
+                date: "2026-03-03", displayDate: "March 3 (Tuesday)", title: "The Security of Taking Off the Mask",
+                verse: '"But he said to me, ‘My grace is sufficient for you, for my power is made perfect in weakness.’" — 2 Corinthians 12:9',
+                theology: "Paul asked the Lord to remove the \"thorn\" from his flesh, but God refused. What God promises is not \"making you strong enough to no longer suffer,\" but \"My grace is sufficient to cover your weakness\". Weakness is not an obstacle to experiencing God's grace; instead, it is the landing pad for God's power.",
+                heart: "We have been taught to be \"strong\" since childhood, so we learned to wear disguises. Hiding weakness stems from shame and fear of rejection. When we find security in Jesus and no longer cover up our vulnerability, our inner selves don't have to waste energy maintaining a facade.",
+                action: "Share a recent, genuine worry or weakness with a trusted friend or spouse, allow yourself to be imperfect, and ask for prayer.",
+                prayer: "Lord Jesus, thank You for loving the real and weak me. Give me the courage to take off the perfect disguise and frankly come before You to experience Your covering. Amen."
             },
             {
-                week: "第四週：職場與生活壓力的轉化 (3/22 - 3/28)",
-                days: [
-                    { day: 22, date: "3/22 (日)", title: "從「勞苦愁煩」到「職場祭壇」", hasContent: true, key: "2026-03-22" },
-                    { day: 23, date: "3/23 (一)", title: "對抗拖延背後的完美主義", hasContent: true, key: "2026-03-23" },
-                    { day: 24, date: "3/24 (二)", title: "金錢焦慮的解藥", hasContent: true, key: "2026-03-24" },
-                    { day: 25, date: "3/25 (三)", title: "在不公義的環境中持守良善", hasContent: true, key: "2026-03-25" },
-                    { day: 26, date: "3/26 (四)", title: "枯竭時，容許自己喊「停」", hasContent: true, key: "2026-03-26" },
-                    { day: 27, date: "3/27 (五)", title: "平凡日子的神聖意義", hasContent: true, key: "2026-03-27" },
-                    { day: 28, date: "3/28 (六)", title: "將你的重擔交託給祂", hasContent: true, key: "2026-03-28" }
-                ]
+                date: "2026-03-04", displayDate: "March 4 (Wednesday)", title: "Hearing the Still Small Voice in Silence",
+                verse: '"After the earthquake came a fire, but the LORD was not in the fire. And after the fire came a gentle whisper." — 1 Kings 19:12',
+                theology: "The prophet Elijah fled in extreme exhaustion and fear. God did not use thunderous miracles to rebuke him. Instead, God spoke to him in a \"gentle whisper\" (or still small voice). God's heart is gentle; He knows an exhausted soul cannot bear more fright.",
+                heart: "Modern brains are bombarded by notifications and noise, placing them in chronic \"information fatigue\". When external voices are too loud, we cannot hear our inner voice, much less God's voice. Silence is a discipline that requires intentional practice in modern society.",
+                action: "While commuting or showering today, do not listen to music or podcasts, and enjoy 10 minutes of complete silence. Notice the thoughts that pop into your head and hand them over to God.",
+                prayer: "Gentle Lord, the world is too noisy, and my heart is too clamorous. Please calm my inner storms, so that in silence, I can once again hear Your gentle whisper full of love and guidance. Amen."
             },
             {
-                week: "第五週：穿越苦難與迎接呼召 (3/29 - 4/4) [受難週]",
-                days: [
-                    { day: 29, date: "3/29 (日)", title: "棕樹節：承認我們對神的誤解", hasContent: true, key: "2026-03-29" },
-                    { day: 30, date: "3/30 (一)", title: "為什麼好人會受苦？", hasContent: true, key: "2026-03-30" },
-                    { day: 31, date: "3/31 (二)", title: "在客西馬尼園的極度哀傷", hasContent: true, key: "2026-03-31" },
-                    { day: 32, date: "4/1 (三)", title: "被背叛的痛與耶穌的同行", hasContent: true, key: "2026-04-01" },
-                    { day: 33, date: "4/2 (四)", title: "濯足節：甘心服事那不可愛的", hasContent: true, key: "2026-04-02" },
-                    { day: 34, date: "4/3 (五)", title: "受難日：那撕裂的幔子與愛", hasContent: true, key: "2026-04-03" },
-                    { day: 35, date: "4/4 (六)", title: "靜默日：在看似無望中等候", hasContent: true, key: "2026-04-04" }
-                ]
+                date: "2026-03-05", displayDate: "March 5 (Thursday)", title: "The Tug-of-War Between Fear and Faith",
+                verse: '"He said to his disciples, ‘Why are you so afraid? Do you still have no faith?’" — Mark 4:40',
+                theology: "The disciples were terrified in the stormy sea, yet Jesus was sleeping in the stern. Faith is not believing \"there will be no storm,\" but believing \"even in the storm, God is still in the boat with me, and He is still in control\". Jesus' calmness stemmed from His absolute trust in the Heavenly Father.",
+                heart: "We often have a pessimistic imagination—always amplifying small problems infinitely and anticipating the worst results. Faith is, at the moment of wanting to scream in fear, choosing to shift our gaze from the \"out-of-control environment\" to the \"ever-present Jesus\".",
+                action: "Write down the one thing you are most afraid of happening right now. Then write next to it: \"Even if this happens, Jesus is still in my boat, and He can lead me through it.\"",
+                prayer: "Lord, when life stirs up strong winds, I often feel You are ignoring my survival. Please forgive my little faith. Give me the power of calmness, knowing that with Your presence, this boat will not sink. Amen."
             },
             {
-                week: "第六週：復活與得勝 (4/5)",
-                days: [
-                    { day: 36, date: "4/5 (日)", title: "復活節：那塊石頭已經輥開", hasContent: true, key: "2026-04-05" }
-                ]
+                date: "2026-03-06", displayDate: "March 6 (Friday)", title: "When Prayers Seem Unanswered",
+                verse: '"How long, LORD? Will you forget me forever? How long will you hide your face from me?" — Psalm 13:1',
+                theology: "David's prayer is extremely real, filled with the pain of feeling abandoned by God. This reminds us that the Bible does not gloss over reality. God allowed the Psalms to record this struggle of \"God seeming to disappear,\" showing that He accepts our true emotions.",
+                heart: "When we experience setbacks, injustice, or chronic illness, the deepest pain is often the loneliness of feeling \"God doesn't care\". Blindly suppressing the grief will cause our souls to dry up. Bringing anger and doubts before God is in itself an expression of trust.",
+                action: "If you have some disappointment or confusion toward God, try writing an \"honest letter\" to Him today. Write down your feelings unvarnished, without rushing to give standard answers.",
+                prayer: "Lord, sometimes I really feel You are very far from me. But I choose to come before You, because other than You, who else can I seek? Please guard my heart in the silence. Amen."
+            },
+            {
+                date: "2026-03-07", displayDate: "March 7 (Saturday)", title: "Sabbath: Realigning the Rhythm of Life",
+                verse: '"Remember the Sabbath day by keeping it holy. Six days you shall labor and do all your work, but the seventh day is a sabbath to the LORD your God." — Exodus 20:8-10a',
+                theology: "The Sabbath is not a restriction, but God's \"declaration of freedom\" given to slaves. God including the Sabbath in the Ten Commandments is a declaration: we have been redeemed; we are no longer tools of production, but God's precious children.",
+                heart: "Modern society is filled with work supremacy. We are afraid to rest for fear of falling behind. Establishing a day of rest is forcing oneself to press the pause button, acknowledging that the world's rotation does not need me; what I need is to restore connection with the Creator.",
+                action: "In the upcoming weekend, carve out a continuous 4-6 hours as your \"mini-Sabbath.\" During this time, do not reply to work messages, and only do things that make you feel restored.",
+                prayer: "Creator Lord, thank You for establishing the rhythm of rest for me. Help me break free from that slave-like mentality, no longer using endless toil to prove myself. Let me enjoy true freedom in You. Amen."
+            },
+            {
+                date: "2026-03-08", displayDate: "March 8 (Sunday)", title: "You Are More Honorable Than You Imagine",
+                verse: '"I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well." — Psalm 139:14',
+                theology: "Under God's gaze, David discovered his irreplaceable value. We are not replicas on an industrial assembly line, but masterpieces carefully sculpted by the great Artist. Our honor depends not on what we have done, but on whose exclusive work we are.",
+                heart: "Anxiety over appearance and figure, or always feeling \"not good enough,\" are common pain points. We evaluate ourselves against impossibly high standards on the internet. Remember, self-deprecation is not humility; it is a distrust in the Creator's craftsmanship.",
+                action: "Stand in front of the mirror today, look at yourself, do not pick on flaws, but say to yourself: \"I am meticulously created by God; I am fearfully and wonderfully made.\"",
+                prayer: "Lord, forgive me for often using worldly standards to devalue Your creation. Open my eyes so that I can re-see my own beauty and honor through Your loving gaze. Amen."
+            },
+            {
+                date: "2026-03-09", displayDate: "March 9 (Monday)", title: "No Longer Defining Yourself by Achievements",
+                verse: '"For it is by grace you have been saved, through faith... not by works, so that no one can boast." — Ephesians 2:8-9',
+                theology: "The core of grace lies in \"freely receiving.\" The world's logic is \"no pain, no gain,\" but the Kingdom's logic is \"before you even toiled, I have already given you everything\". God wants us to come before Him solely with the identity of a \"sinner saved by grace\".",
+                heart: "The fear of always feeling \"not good enough\" stems from equating \"achievement\" with \"self-worth.\" When we fail, we feel \"I am a failure.\" Grace separates our value from fluctuating performances and establishes it on God's eternally unchanging acceptance.",
+                action: "List three achievements you've recently been proud of, and then gently lay them down in your heart, saying to God: \"Even without these, You still love me.\"",
+                prayer: "Lord of grace, I am too used to measuring my value with report cards. Release me, so that I may truly know that in Your eyes I don't need to prove anything; I just need to rest securely in Your love. Amen."
+            },
+            {
+                date: "2026-03-10", displayDate: "March 10 (Tuesday)", title: "Facing Inner Guilt and Shame",
+                verse: '"Therefore, there is now no condemnation for those who are in Christ Jesus." — Romans 8:1',
+                theology: "This is the most declarative sentence in the Bible! \"No condemnation\" doesn't mean we haven't done wrong things, but that because Christ has already borne the punishment for us, God officially declares us acquitted in the courtroom.",
+                heart: "We often cannot distinguish between \"healthy remorse\" and \"destructive shame\". The enemy uses destructive shame to make us feel unworthy to come before God. Continuously flogging yourself over past mistakes will not make you holier; it will only distance you from God.",
+                action: "Is there a past mistake you have confessed but still cannot forgive yourself for? Today, declare Romans 8:1 loudly to yourself: \"In Christ Jesus, [Your Name] is no longer condemned!\"",
+                prayer: "Lord Jesus, Your precious blood has cleansed my sins, but I often refuse to let myself go. Break those lies that accuse me, and let me truly experience the freedom of Your non-condemnation. Amen."
+            },
+            {
+                date: "2026-03-11", displayDate: "March 11 (Wednesday)", title: "Reconciling with Past Scars",
+                verse: '"You intended to harm me, but God intended it for good to accomplish what is now being done..." — Genesis 50:20',
+                theology: "Joseph was sold by his brothers and experienced tremendous trauma. When in power, he chose not to retaliate, but saw the grander puzzle of God behind the suffering. God has the power to transform human evil into stepping stones for accomplishing salvation.",
+                heart: "Past scars will trap us in memories, turning us into victims. Reconciliation doesn't mean agreeing with the other person's harm; it means you decide not to let past hurts continue controlling your present. Elevate the perspective to \"How did God use this to shape me?\"",
+                action: "Recall a past setback or hurt. Try writing down: Although this event was painful, what did God teach me through it? Or did it make me more empathetic?",
+                prayer: "Lord of healing, past scars sometimes still throb with pain. I choose to no longer cling to the identity of a victim. Grant me Joseph's perspective to see how You turn curses into blessings. Amen."
+            },
+            {
+                date: "2026-03-12", displayDate: "March 12 (Thursday)", title: "Accepting Your Current Season",
+                verse: '"There is a time for everything, and a season for every activity under the heavens..." — Ecclesiastes 3:1-2',
+                theology: "The time God created is seasonal. Spring has its prosperity, winter has its dormancy. We desire life to stay forever in the harvest season, but God knows that without the waiting deeply buried in the soil, there will be no true growth.",
+                heart: "We often have worries about falling behind: \"Others are successful, I'm still lost.\" This anxiety is because we refuse to accept our current \"season.\" If your soul is currently in winter, don't force yourself to bloom; allow yourself to grieve and settle.",
+                action: "Identify which season your life is currently in (waiting period, sprinting period, pruning period, healing period)? Offer thanksgiving to God for this season today.",
+                prayer: "Lord who governs time, forgive me for often being impatient. Grant me a peaceful heart to accept the season I am in now, believing Your timing is always the best. Amen."
+            },
+            {
+                date: "2026-03-13", displayDate: "March 13 (Friday)", title: "Comparison: The Thief of Joy",
+                verse: '"Each one should test their own actions; then they can take pride in themselves alone, without comparing themselves to someone else." — Galatians 6:4',
+                theology: "Paul reminds believers that God's calling and boundaries are different for each of us. In God's kingdom, there are no standardized KPIs. God will not compare you to others; He will only ask: \"Have you faithfully used the talents I gave you?\".",
+                heart: "\"Comparison\" is the biggest thief that steals joy. In the internet age, we always compare our real \"behind-the-scenes\" with others' carefully edited \"highlight reels,\" which is destined to be a losing game. Focusing on God's gifts brings forth gratitude and groundedness.",
+                action: "Try doing a \"social media fast\" for one day today, or unfollow accounts that constantly make you feel anxious or inferior. Focus on one small thing you can accomplish today.",
+                prayer: "Lord, my eyes are often drawn to the success of others, causing me to overlook the grace You have given me. Please help me focus on the path You have tailor-made for me and to stop comparing. Amen."
+            },
+            {
+                date: "2026-03-14", displayDate: "March 14 (Saturday)", title: "A Renewed Perspective in Christ",
+                verse: '"Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!" — 2 Corinthians 5:17',
+                theology: "Being a \"new creation\" does not mean we instantly lose all our flaws, memories, or past scars. It signifies a complete change in our \"status\" and a renewal in our \"perspective\". In Christ, we are no longer defined by our past failures, but by our future hope.",
+                heart: "In spiritual growth, establishing a new \"self-identity\" is extremely important. If you keep telling yourself, \"I am just a hot-tempered person,\" you will continuously replay that script. But in Christ, you have the right to rewrite the script.",
+                action: "Write down a negative label you often put on yourself (e.g., I never do anything right). Then, write down Christ's new declaration over you (e.g., In Christ, I can do all things).",
+                prayer: "Lord Jesus, thank You for giving me a brand new start. When old patterns of thinking try to pull me back, may the Holy Spirit remind me that I am Your new creation. Amen."
+            },
+            {
+                date: "2026-03-15", displayDate: "March 15 (Sunday)", title: "Love Begins with Setting Healthy Boundaries",
+                verse: '"Above all else, guard your heart, for everything you do flows from it." — Proverbs 4:23',
+                theology: "Christians often hold the misconception that love means \"limitless endurance and sacrifice\". However, Proverbs reminds us that we have a responsibility to \"guard\" the heart God has entrusted to us. Love without boundaries will ultimately turn into exhaustion and bitterness.",
+                heart: "People pleasers often put the needs of others above their own, fearing that saying \"no\" will ruin relationships. Setting boundaries is not selfish; it is to protect mutual relationships from being destroyed by unreasonable demands. Only by appropriately saying \"no\" can you truly give a quality \"yes\".",
+                action: "Today, attempt to gently but firmly say \"no\" or \"I am unable to help right now\" to an unreasonable or exhausting request.",
+                prayer: "Lord, grant me the wisdom and courage to draw healthy boundaries. Let me understand that I cannot save everyone. Help me learn to love in a healthy way. Amen."
+            },
+            {
+                date: "2026-03-16", displayDate: "March 16 (Monday)", title: "Forgiveness: Releasing the Imprisoned Self",
+                verse: '"Jesus answered, \'I tell you, not seven times, but seventy-seven times.\'" — Matthew 18:22',
+                theology: "Peter thought forgiving \"seven times\" was the ultimate limit, but Jesus used \"seventy-seven times\" to demonstrate that forgiveness is a way of life. Forgiveness is not declaring that the other person's behavior was justified; rather, it is declaring that they no longer have control over you.",
+                heart: "Resentment and bitterness will trap us in the prison of past pain. Harboring bitterness will backfire on our health. Forgiveness is a \"decision\" as well as a \"process\". It severs the chain of hatred binding you together, allowing you to regain your freedom.",
+                action: "In your prayer, mention the name of the person who hurt you and say to God: \"Lord, I choose to hand over the right to judge them to You, and I decide to let go\".",
+                prayer: "Lord Jesus, You forgave those who nailed You to the cross. Help me release the bitterness in my heart so that my soul can be free once again. Amen."
+            },
+            {
+                date: "2026-03-17", displayDate: "March 17 (Tuesday)", title: "Listening with Empathy",
+                verse: '"Everyone should be quick to listen, slow to speak and slow to become angry," — James 1:19',
+                theology: "James provides a profound rhythm for relational health. In a world desperate to be heard, true listening is an act of Christ-like love. When we listen deeply, we reflect God. We often use listening time to formulate our rebuttal, but God calls us to truly hear the heart.",
+                heart: "Many interpersonal conflicts stem from feeling misunderstood. When you jump to fix someone's problem before validating their pain, you build a wall instead of a bridge. Empathic listening doesn't mean you agree with everything; it means you value the person.",
+                action: "In your next conversation, practice \"active silence.\" Make eye contact, do not interrupt, and wait two full seconds after the person finishes speaking before you respond.",
+                prayer: "Lord, give me ears that truly hear and a heart that seeks to understand. Help me lay aside my need to be right, so I can be an instrument of Your empathy. Amen."
+            },
+            {
+                date: "2026-03-18", displayDate: "March 18 (Wednesday)", title: "Overcoming the Need for Approval",
+                verse: '"Am I now trying to win the approval of human beings, or of God? Or am I trying to please people?" — Galatians 1:10',
+                theology: "Paul reminds us that our ultimate allegiance is to Christ alone. Seeking human approval as our primary goal inevitably compromises our faith and dilutes the gospel. True freedom is found when we realize we are already fully approved by God through Christ.",
+                heart: "We often perform for the applause of others—whether on social media, at work, or even in ministry. This exhausting treadmill of people-pleasing leaves us anxious and hollow. When God's unconditional love becomes our anchor, the opinions of others lose their power to dictate our worth.",
+                action: "Do one intentional act of kindness or service today completely in secret, so that no one but God knows you did it.",
+                prayer: "Lord, free me from the exhausting need to constantly seek human approval. Remind me that I am already fully loved and accepted by You. Amen."
+            },
+            {
+                date: "2026-03-19", displayDate: "March 19 (Thursday)", title: "The Courage to Confess",
+                verse: '"Therefore confess your sins to each other and pray for each other so that you may be healed." — James 5:16',
+                theology: "Healing in the biblical sense involves more than physical restoration; it encompasses spiritual and relational wholeness. Confession brings sins out of the dark where they hold power, into the light of God's grace and Christian community, breaking the chains of shame.",
+                heart: "We naturally hide our faults, fearing judgment. Yet, hidden sins fester and isolate us. Finding a safe, mature believer to share our struggles with is a courageous step toward freedom. It shatters the illusion of perfection and invites genuine healing grace.",
+                action: "Spend time in prayer asking God to reveal any hidden sin. Consider reaching out to a trusted spiritual friend to share an area where you are struggling.",
+                prayer: "Father, give me the courage to step out of the shadows of shame. Help me to honestly confess my struggles, knowing Your grace is sufficient. Amen."
+            },
+            {
+                date: "2026-03-20", displayDate: "March 20 (Friday)", title: "Joy in the Desert",
+                verse: '"Consider it pure joy, my brothers and sisters, whenever you face trials of many kinds..." — James 1:2',
+                theology: "James does not say trials are joy, but to consider them joy. This is a profound shift in perspective. Trials act as a refining fire, burning away our superficial dependencies and forging a resilient, deep-rooted faith that cannot be shaken by circumstances.",
+                heart: "When hardships hit, our default response is often complaint or despair. But God invites us to look deeper. The desert seasons of life are not punishments; they are the training ground for spiritual endurance.",
+                action: "Write down one difficult situation you are facing right now. Next to it, write one way God might be using this to build perseverance in your character.",
+                prayer: "Lord, it is hard to find joy in the midst of pain. Change my perspective. Help me to trust that You are using my current trials to refine my faith. Amen."
+            },
+            {
+                date: "2026-03-21", displayDate: "March 21 (Saturday)", title: "The Posture of Humility",
+                verse: '"Do nothing out of selfish ambition or vain conceit. Rather, in humility value others above yourselves," — Philippians 2:3',
+                theology: "Humility is not thinking less of yourself, but thinking of yourself less. Paul points to Jesus, who laid aside His divine privileges to serve. In God's economy, the way up is down. True greatness is measured by our willingness to stoop and serve.",
+                heart: "Our culture celebrates self-promotion and asserting our rights. But the way of Christ calls us to actively look for ways to elevate others. This doesn't diminish our worth; rather, it reflects the very heart of Jesus.",
+                action: "Intentionally let someone else have their way or take the spotlight today, whether in a conversation, in traffic, or at work. Do it with a joyful heart.",
+                prayer: "Jesus, You washed Your disciples' feet. Forgive my pride and my constant desire to be first. Teach me the beautiful freedom of humility. Amen."
+            },
+            {
+                date: "2026-03-22", displayDate: "March 22 (Sunday)", title: "Anchored in Hope",
+                verse: '"We have this hope as an anchor for the soul, firm and secure." — Hebrews 6:19',
+                theology: "The hope of a Christian is not wishful thinking; it is a firm assurance based on the finished work of Christ. Like an anchor dropped not into the sea, but upward into the heavenly sanctuary, our souls are tethered to the unchanging reality of God's presence.",
+                heart: "In turbulent times, our emotions and circumstances toss us around like a boat in a storm. If our hope is tied to our health, wealth, or relationships, we will drift. But when our hope is anchored in Jesus, we remain secure, no matter the weather.",
+                action: "Memorize Hebrews 6:19 today. Repeat it to yourself whenever you feel anxious or overwhelmed by the news or your circumstances.",
+                prayer: "Lord, when the storms of life rage, remind me that my soul is anchored in You. You are my firm and secure hope. Keep me tethered to Your unchanging truth. Amen."
+            },
+            {
+                date: "2026-03-23", displayDate: "March 23 (Monday)", title: "The Practice of Gratitude",
+                verse: '"Give thanks in all circumstances; for this is God’s will for you in Christ Jesus." — 1 Thessalonians 5:18',
+                theology: "Gratitude is not a feeling that follows a blessing; it is a discipline that precedes joy. Paul commands giving thanks in all circumstances, acknowledging God's sovereign goodness even when the situation itself is difficult or painful.",
+                heart: "A complaining spirit blinds us to God's grace, while gratitude opens our eyes to see His hand at work everywhere. Cultivating a thankful heart is a powerful weapon against anxiety, shifting our focus from what we lack to what we have already been given in Christ.",
+                action: "Start a \"gratitude list\" today. Write down 5 specific things you are thankful for, pushing beyond the obvious to notice small, everyday blessings.",
+                prayer: "Heavenly Father, forgive me for taking Your blessings for granted. Open my eyes to see Your goodness in every detail. Cultivate in me a heart of unceasing gratitude. Amen."
+            },
+            {
+                date: "2026-03-24", displayDate: "March 24 (Tuesday)", title: "The Antidote to Financial Anxiety",
+                verse: '"But seek first his kingdom and his righteousness, and all these things will be given to you as well." — Matthew 6:33',
+                theology: "Jesus did not deny our \"need\" for material things; He said the Father \"knows.\" What Jesus opposed is being \"controlled\" by material things. Jesus proposed a subversive order: seek God's kingdom first. Only when God becomes the greatest source of our security will money cease to be our master.",
+                heart: "Worry about money often roots in \"a lack of security\"—always feeling resources are insufficient. This mindset makes people selfish and tense. The antidote is cultivating a contented mindset that believes God will provide, trusting that there is a good Father watching over us.",
+                action: "Today, intentionally use a small amount of money to bless someone else (e.g., treat a colleague to coffee or donate to a needy organization), to experience the freedom of giving.",
+                prayer: "Jehovah Jireh who provides, I admit that money often makes me lose my peace. Help me readjust the order of my life, to seek Your kingdom first. Amen."
+            },
+            {
+                date: "2026-03-25", displayDate: "March 25 (Wednesday)", title: "Holding onto Goodness in an Unjust Environment",
+                verse: '"He has shown you, O mortal, what is good... To act justly and to love mercy and to walk humbly with your God." — Micah 6:8',
+                theology: "Facing a society full of oppression and injustice, the prophet Micah points out God's will. God doesn't want complicated religious rituals; He wants us to reflect His character in our daily lives. \"Walking humbly with your God\" reminds us: we are not moral heroes fighting alone, but companions relying on God's grace.",
+                heart: "In environments filled with office politics or injustice, it's easy for people to feel a guilty conscience or lose hope. Holding onto goodness requires immense inner strength. Remember, your kindness is not meant to change everyone, but to protect your own soul from being assimilated by the world.",
+                action: "Today, at work or in life, when you face a small decision where you can choose to \"go with the flow\" or \"persist in integrity,\" choose the right thing, even if it is troublesome.",
+                prayer: "Lord of justice, the world often makes me feel powerless and angry. Grant me wisdom and courage, so that in an unjust environment, I can still act justly and love mercy. Amen."
+            },
+            {
+                date: "2026-03-26", displayDate: "March 26 (Thursday)", title: "When Exhausted, Allow Yourself to Call a 'Stop'",
+                verse: '"The angel of the LORD came back a second time and touched him and said, \'Get up and eat, for the journey is too much for you.\'" — 1 Kings 19:7',
+                theology: "After his great victory on Mount Carmel, Elijah collapsed and asked to die due to Jezebel's threats. God didn't give him a lengthy sermon. God provided the gentlest care: He let him sleep well and sent an angel to bake bread. Taking good care of the body God gave us is also a spiritual discipline.",
+                heart: "We often ignore our body's warning signs until our mind and body completely collapse. We think we are supermen, but God knows we are merely dust. Allowing ourselves to be weak and allowing ourselves to call a \"stop\" is great wisdom. Sometimes, the most spiritual decision is to get a good night's sleep.",
+                action: "Examine your physical condition today. If you feel tense and exhausted, please go to bed an hour early tonight, don't scroll on your phone, and let your brain and body truly rest.",
+                prayer: "Loving Heavenly Father, thank You for completely understanding my fragility. When I am overdrawn and exhausted, help me to put down the mask of holding on, and accept Your rest. Amen."
+            },
+            {
+                date: "2026-03-27", displayDate: "March 27 (Friday)", title: "The Sacred Meaning of Ordinary Days",
+                verse: '"Who dares despise the day of small things..." — Zechariah 4:10',
+                theology: "When the Israelites rebuilt the temple, the process was slow. Those who had seen the glory of the former temple wept. But God said, do not despise these seemingly small, ordinary beginnings. As God watched Zerubbabel laying the foundation little by little, God's heart rejoiced.",
+                heart: "The lives of most people are made up of \"ordinary\" small things like groceries, commuting, and replying to emails. We easily fall into a \"sense of boredom.\" But those who can find rhythm and meaning in daily trivialities have the most grounded lives. Great character is built in day-after-day tiny acts of faithfulness.",
+                action: "Today, when doing the most routine household chore (like washing dishes or folding clothes), do it with a grateful heart, treating this small task as an act of worship offered to God.",
+                prayer: "Lord, I often long for earth-shattering achievements, but grow weary of the ordinary routine. Open my eyes to see the sacredness hidden in the daily necessities. Amen."
+            },
+            {
+                date: "2026-03-28", displayDate: "March 28 (Saturday)", title: "Cast Your Burdens Upon Him",
+                verse: '"Cast all your anxiety on him because he cares for you." — 1 Peter 5:7',
+                theology: "The word \"cast\" in the original text implies a heavy action, like throwing a heavy sack from one's back onto another donkey. We often think God only cares about life-and-death matters, not our little daily troubles. But Peter says to cast \"all\" anxiety upon Him, \"because He cares for you.\"",
+                heart: "Worry is like a negative movie playing continuously in our minds. Casting is not doing nothing, but after fulfilling our duties, refusing to let the outcome torture us, knowing there is an almighty God in control. We write down the troubles in our minds and hand them over to God.",
+                action: "Take out a piece of paper and write down the three things you are most worried about right now. Then crumple it up and throw it away, symbolizing that you have unloaded these burdens onto God.",
+                prayer: "Dear Heavenly Father, my shoulders carry too many burdens that don't belong to me. Today I choose to cast all these worries upon You, because I know You deeply love me. Amen."
+            },
+            {
+                date: "2026-03-29", displayDate: "March 29 (Sunday)", title: "Palm Sunday: Admitting Our Misunderstanding of God",
+                verse: '"They took palm branches and went out to meet him, shouting, \'Hosanna! Blessed is he who comes in the name of the Lord!\'" — John 12:13',
+                theology: "The crowds enthusiastically welcomed Jesus because they expected a political Messiah to overthrow the Roman Empire. Yet Jesus rode into the city on a donkey's colt, representing peace. When the crowds realized Jesus didn't meet their expectations, their \"Hosanna\" turned into \"Crucify Him\".",
+                heart: "Do we also often act like these crowds, forcing our own expectations onto God? When God doesn't follow our script, we feel disillusioned and angry. A mature faith acknowledges that God's thoughts are higher than our thoughts, willing to let go of the fantasy to love the true Lord.",
+                action: "Reflect on this: Have you ever been quietly angry at God in your heart because He didn't fulfill something according to your expectations? Try confessing this emotion to God today.",
+                prayer: "Lord Jesus, I admit I often only love the You who \"blesses,\" but resist the You who \"carries the cross.\" Make me willing to submit to Your sovereignty. Amen."
+            },
+            {
+                date: "2026-03-30", displayDate: "March 30 (Monday)", title: "Why Do Good People Suffer?",
+                verse: '"My ears had heard of you but now my eyes have seen you." — Job 42:5',
+                theology: "Job lost his wealth, children, and health. His friends tried to explain his suffering with a karma-like theology. But when God finally appeared, He didn't answer Job \"why he suffered,\" but showed Job the vastness of His creation. Job's satisfaction came not from getting an answer, but because he \"met God.\"",
+                heart: "Facing immense suffering, human instinct seeks a \"why,\" as if finding the cause could lessen the pain. But sometimes, excessively seeking a reason becomes a secondary injury. When accompanying those who grieve, companionship is far more important than answers. God promised to be with us in it.",
+                action: "Today, if someone around you is suffering, don't rush to give them scriptures or grand theories. Simply accompany them, give them a hug, or buy them a hot drink.",
+                prayer: "Almighty Lord, there are too many \"whys\" in life to which I can't find answers. But in all this confusion and pain, let me deeply experience Your presence. Amen."
+            },
+            {
+                date: "2026-03-31", displayDate: "March 31 (Tuesday)", title: "Extreme Sorrow in Gethsemane",
+                verse: '"Then he said to them, \'My soul is overwhelmed with sorrow to the point of death. Stay here and keep watch with me.\'" — Matthew 26:38',
+                theology: "On the eve of facing the cross, Jesus experienced extreme fear and sorrow, even sweating drops like blood. Jesus didn't hide His emotions; He honestly expressed His vulnerability to the disciples. This High Priest deeply understands all our weaknesses and pains.",
+                heart: "People often think expressing feelings is a sign of immaturity, and Christians might feel guilty for falling into depression, thinking they \"lack faith.\" But Jesus' behavior tells us: pain and extreme sorrow are part of human nature. Healthy faith isn't pretending there is no pain, but bringing it before the Father.",
+                action: "Allow yourself to accept a negative emotion today (sadness, anxiety, or anger). Do not suppress it, but say to God: \"Lord, I am really sad right now, please stay with me.\"",
+                prayer: "Suffering Jesus, thank You for letting me see Your tears and struggles. When I am overwhelmed with sorrow to the point of death, I know You completely understand me. Amen."
+            },
+            {
+                date: "2026-04-01", displayDate: "April 1 (Wednesday)", title: "The Pain of Betrayal and Walking with Jesus",
+                verse: '"If an enemy were insulting me, I could endure it; ... But it is you, a man like myself, my companion, my close friend," — Psalm 55:12-13',
+                theology: "Wednesday of Passion Week is traditionally called \"Spy Wednesday\". Jesus was betrayed with a \"kiss\" by a close disciple He had taught for three years. The deepest hurt often comes from those closest to us. Jesus, taking our place, drank this bitter cup of betrayal to the dregs.",
+                heart: "Encountering betrayal completely destroys a person's trust in the world. Repairing this pain is extremely difficult. But in this process, the greatest comfort is: Jesus experienced it. When you are heartbroken, you can be certain that the God sitting next to you also bears the scars of being stabbed by a friend.",
+                action: "Say a brief prayer for someone who once betrayed your trust. Ask God to heal the sense of trust damaged in that relationship.",
+                prayer: "Lord Jesus, You know the pain of being stabbed in the back by someone most trusted. May Your wounded hands embrace me, and heal me with Your unfailing love. Amen."
+            },
+            {
+                date: "2026-04-02", displayDate: "April 2 (Thursday)", title: "Maundy Thursday: Willingly Serving the Unlovable",
+                verse: '"Now that I, your Lord and Teacher, have washed your feet, you also should wash one another’s feet." — John 13:14',
+                theology: "At the Last Supper, Jesus did the lowest job of a slave—washing His disciples' feet. What's more shocking is that these disciples included Judas who was about to betray Him, and Peter who would deny Him. Jesus' love was not because they \"deserved\" it, but out of His own nature of love.",
+                heart: "In interpersonal relationships, we often fall into \"transactional\" love: I'll treat you well only if you treat me well. But this kind of love is easily exhausted. Jesus' foot-washing reminds us that true service and love are the natural overflow after receiving unconditional acceptance from God.",
+                action: "Today, intentionally do a small act of service for someone around you who is usually ignored or even a bit difficult to get along with (e.g., pour them a glass of water).",
+                prayer: "Humble Lord, You were actually willing to wash the feet of the one who would betray You. May Your love first fill me, so that I can carry Your towel and basin to serve. Amen."
+            },
+            {
+                date: "2026-04-03", displayDate: "April 3 (Friday)", title: "Good Friday: The Torn Curtain and Love",
+                verse: '"With a loud cry, Jesus breathed his last. The curtain of the temple was torn in two from top to bottom." — Mark 15:37-38',
+                theology: "The curtain in the temple separated the \"Holy of Holies\" from the people, declaring that sinners could not approach the holy God. But the moment Jesus breathed His last, this heavy curtain was torn in two \"from top to bottom\"! Jesus opened a new and living way for us with His body.",
+                heart: "Deep inside, each of us has a self-protecting \"curtain\" used to hide our unworthiness and shame. We are afraid of being seen through. But the cross declares: God has already seen your worst side, and has decided to bear the cost for you. The door of grace is already open wide.",
+                action: "In today (Good Friday), find some quiet time to meditate on the love of the cross. Declare to yourself: \"God has torn the curtain, I can boldly and fearlessly be fully accepted by Him.\"",
+                prayer: "Lord Jesus who laid down Your life for me, looking at the cross, I finally realize how deep Your love is. Thank You for paving my way home with Your blood. Amen."
+            },
+            {
+                date: "2026-04-04", displayDate: "April 4 (Saturday)", title: "Silent Saturday: Waiting in Seemingly Hopeless Situations",
+                verse: '"But they rested on the Sabbath in obedience to the commandment." — Luke 23:56',
+                theology: "This is the \"Holy Saturday\" before Easter. Jesus was buried in the tomb, and the disciples plunged into absolute despair. For the disciples, this day was dead silent. But what they didn't know was that in the darkness they couldn't see, God was accomplishing the greatest counterattack in the universe.",
+                heart: "In life, we often experience this kind of \"Holy Saturday\"—we have prayed, but things haven't turned around. This transitional wilderness is the hardest to endure. But this day teaches us: God's silence doesn't mean God's absence; things unresolved don't mean God isn't working.",
+                action: "If you are currently in a predicament where you can't see hope, try to stop struggling and complaining today. Wait quietly, trusting that God is still in control in the darkness.",
+                prayer: "Lord, sometimes my life is like being trapped in front of Saturday's tomb. Grant me the patience to wait and the courage to rest, knowing that You are still working. Amen."
+            },
+            {
+                date: "2026-04-05", displayDate: "April 5 (Sunday)", title: "Easter: The Stone Has Been Rolled Away",
+                verse: '"But when they looked up, they saw that the stone, which was very large, had been rolled away." — Mark 16:4',
+                theology: "Hallelujah, the Lord is risen! The women brought spices, worrying about the large stone blocking the way. But when they arrived, they found God had already acted—the stone had been rolled away, and the tomb was empty! Easter declares that death is not the end, and sin cannot overcome grace.",
+                heart: "What is that \"heavy, unmovable large stone\" in your life? The power of resurrection is not only a guarantee of going to heaven in the future, but a power that can intervene in your life today, bringing transformation out of desperate situations.",
+                action: "Today, declare loudly to someone around you: \"The Lord Jesus is risen!\" And recall an experience where God \"rolled away the stone\" in your life, offering up praise.",
+                prayer: "Victorious Savior Jesus, I praise You! You have overcome the sting of death. May the power of resurrection fill my life today, to live out a new life full of glorious hope! Amen!"
             }
         ];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderOutline();
-            loadTodayDevotional();
-        });
+        // UI Elements
+        const dateListEl = document.getElementById('dateList');
+        const contentPlaceholder = document.getElementById('contentPlaceholder');
+        const devotionalContent = document.getElementById('devotionalContent');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        // 取得香港時間的 YYYY-MM-DD
-        function getHKDateString() {
-            const options = { 
-                timeZone: 'Asia/Hong_Kong', 
-                year: 'numeric', 
-                month: '2-digit', 
-                day: '2-digit' 
-            };
-            const formatter = new Intl.DateTimeFormat('zh-TW', options);
-            const parts = formatter.formatToParts(new Date());
-            
+        // Content Display Elements
+        const displayDate = document.getElementById('displayDate');
+        const displayTitle = document.getElementById('displayTitle');
+        const displayVerse = document.getElementById('displayVerse');
+        const displayTheology = document.getElementById('displayTheology');
+        const displayHeart = document.getElementById('displayHeart');
+        const displayAction = document.getElementById('displayAction');
+        const displayPrayer = document.getElementById('displayPrayer');
+
+        // State
+        let activeDateId = null;
+        let currentLoadedDateStr = null;
+
+        // Icons Initialization
+        lucide.createIcons();
+
+        // Time logic: Get current date in America/Vancouver timezone
+        function getVancouverDateStr() {
+            const now = new Date();
+            const options = { timeZone: 'America/Vancouver', year: 'numeric', month: '2-digit', day: '2-digit' };
+            const formatter = new Intl.DateTimeFormat('en-CA', options);
+            const parts = formatter.formatToParts(now);
             const year = parts.find(p => p.type === 'year').value;
             const month = parts.find(p => p.type === 'month').value;
             const day = parts.find(p => p.type === 'day').value;
-            
             return `${year}-${month}-${day}`;
         }
 
-        // 載入當天靈修
-        function loadTodayDevotional(specificDate = null) {
-            let targetDate = specificDate || getHKDateString();
+        // Initialize Sidebar
+        function renderSidebar() {
+            dateListEl.innerHTML = '';
+            devotionals.forEach(devotional => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-200 border border-transparent hover:bg-slate-50 focus:outline-none flex flex-col gap-1 ${activeDateId === devotional.date ? 'active-day shadow-sm' : 'text-slate-600'}`;
+                btn.id = `btn-${devotional.date}`;
+                
+                btn.innerHTML = `
+                    <span class="font-bold text-xs ${activeDateId === devotional.date ? 'text-indigo-600' : 'text-slate-500'} uppercase tracking-wider">${devotional.displayDate.split(' ')[0]} ${devotional.displayDate.split(' ')[1]}</span>
+                    <span class="font-medium truncate block w-full">${devotional.title}</span>
+                `;
+                
+                btn.onclick = () => selectDevotional(devotional.date);
+                dateListEl.appendChild(btn);
+            });
+        }
 
-            // 判斷是否在活動期間內
-            const startDate = "2026-02-28";
-            const endDate = "2026-04-05";
+        // Display Selected Devotional
+        function selectDevotional(dateId) {
+            activeDateId = dateId;
+            renderSidebar(); // Update active states
 
-            // 如果沒有指定日期，且香港時間今天不在期間內，預設顯示預備篇並顯示提示
-            if (!specificDate && (targetDate < startDate || targetDate > endDate)) {
-                targetDate = "2026-02-28";
-                document.getElementById('preview-notice').classList.remove('hidden');
-            } else {
-                document.getElementById('preview-notice').classList.add('hidden');
+            const devotional = devotionals.find(d => d.date === dateId);
+            if (!devotional) return;
+
+            // Trigger reflow for animation
+            devotionalContent.classList.remove('fade-in');
+            void devotionalContent.offsetWidth; 
+            devotionalContent.classList.add('fade-in');
+
+            // Set Content
+            displayDate.innerText = devotional.displayDate;
+            displayTitle.innerText = devotional.title;
+            displayVerse.innerText = devotional.verse;
+            displayTheology.innerText = devotional.theology;
+            displayHeart.innerText = devotional.heart;
+            displayAction.innerText = devotional.action;
+            displayPrayer.innerText = devotional.prayer;
+
+            // Toggle visibility
+            contentPlaceholder.classList.add('hidden');
+            devotionalContent.classList.remove('hidden');
+
+            // Close mobile menu if open
+            if (window.innerWidth < 768) {
+                toggleMobileMenu(false);
             }
 
-            const data = devotionals[targetDate];
+            // Scroll to active item in sidebar
+            const activeBtn = document.getElementById(`btn-${dateId}`);
+            if (activeBtn) {
+                activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            // Scroll main view to top
+            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-            if (data) {
-                renderDevotional(data);
-                if(specificDate) {
-                    switchTab('today');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Mobile Menu Toggle
+        function toggleMobileMenu(show) {
+            if (show) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarOverlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
+        sidebarOverlay.addEventListener('click', () => toggleMobileMenu(false));
+
+        // Background checker to update the day automatically if left open across midnight
+        function checkMidnightRollover() {
+            const newDateStr = getVancouverDateStr();
+            // If the date has changed while the tab was open
+            if (currentLoadedDateStr && newDateStr !== currentLoadedDateStr) {
+                currentLoadedDateStr = newDateStr;
+                const newDevotional = devotionals.find(d => d.date === newDateStr);
+                // If the new date has a devotional, jump to it automatically
+                if (newDevotional) {
+                    selectDevotional(newDateStr);
                 }
             }
         }
 
-        function renderDevotional(data) {
-            document.getElementById('display-date').textContent = data.dateStr;
-            document.getElementById('dev-title').textContent = data.title;
-            document.getElementById('dev-verse').textContent = data.verse;
-            document.getElementById('dev-theology').textContent = data.theology;
-            document.getElementById('dev-counseling').textContent = data.counseling;
-            document.getElementById('dev-action').textContent = data.action;
-            document.getElementById('dev-prayer').textContent = data.prayer;
+        // Initialization: Find today's date (Vancouver) and load it
+        function initApp() {
+            const todayStr = getVancouverDateStr();
+            currentLoadedDateStr = todayStr;
+            const todayDevotional = devotionals.find(d => d.date === todayStr);
+            
+            // If today is within the range, load today. Otherwise load the first item.
+            const dateToLoad = todayDevotional ? todayStr : devotionals[0].date;
+            
+            selectDevotional(dateToLoad);
 
-            const sections = document.querySelectorAll('#content-today section');
-            sections.forEach(sec => sec.classList.remove('hidden'));
+            // Check every 60 seconds (60000ms) to see if midnight has passed in Vancouver
+            setInterval(checkMidnightRollover, 60000);
         }
 
-        // 渲染主題大綱
-        function renderOutline() {
-            const container = document.getElementById('outline-container');
-            let html = '';
+        // Run App
+        initApp();
 
-            outlineData.forEach(week => {
-                html += `
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold text-[#8B5A2B] mb-3 border-b border-[#EBE3D5] pb-2">${week.week}</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                `;
-
-                week.days.forEach(day => {
-                    html += `
-                        <div onclick="loadTodayDevotional('${day.key}')" class="flex items-center p-3 bg-white border border-[#EBE3D5] rounded-lg cursor-pointer hover:bg-[#FDFBF7] hover:shadow-sm transition-all group">
-                            <div class="w-16 flex-shrink-0 text-sm font-bold text-[#D4A373] group-hover:text-[#8B5A2B]">${day.date}</div>
-                            <div class="text-sm text-gray-700 font-medium truncate">${day.title}</div>
-                            <div class="ml-auto text-xs text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded">可閱讀</div>
-                        </div>
-                    `;
-                });
-
-                html += `
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        function switchTab(tab) {
-            const tabToday = document.getElementById('tab-today');
-            const tabOutline = document.getElementById('tab-outline');
-            const contentToday = document.getElementById('content-today');
-            const contentOutline = document.getElementById('content-outline');
-
-            if (tab === 'today') {
-                tabToday.className = 'px-6 py-3 text-lg transition-colors duration-200 tab-active focus:outline-none';
-                tabOutline.className = 'px-6 py-3 text-lg transition-colors duration-200 tab-inactive focus:outline-none';
-                contentToday.classList.remove('hidden-content');
-                contentOutline.classList.add('hidden-content');
-            } else {
-                tabOutline.className = 'px-6 py-3 text-lg transition-colors duration-200 tab-active focus:outline-none';
-                tabToday.className = 'px-6 py-3 text-lg transition-colors duration-200 tab-inactive focus:outline-none';
-                contentOutline.classList.remove('hidden-content');
-                contentToday.classList.add('hidden-content');
-            }
-        }
     </script>
 </body>
 </html>
