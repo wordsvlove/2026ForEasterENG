@@ -74,9 +74,17 @@
             </div>
 
             <article id="devotionalContent" class="fade-in bg-white p-6 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 hidden relative">
-                <header class="mb-10 text-center border-b border-slate-100 pb-8">
+                <header class="mb-8 text-center border-b border-slate-100 pb-8">
                     <span id="displayDate" class="text-indigo-600 font-bold tracking-wider uppercase text-xs sm:text-sm mb-3 block"></span>
                     <h2 id="displayTitle" class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 serif-text leading-tight text-balance"></h2>
+                    
+                    <!-- Listen Button -->
+                    <div class="flex justify-center mt-6">
+                        <button id="listenBtn" onclick="toggleSpeak()" class="flex items-center justify-center gap-2 px-6 py-2.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-100 transition-all font-medium text-sm border border-indigo-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 w-48">
+                            <i data-lucide="headphones" class="w-5 h-5"></i>
+                            <span>Listen to Devotional</span>
+                        </button>
+                    </div>
                 </header>
 
                 <div class="space-y-10 sm:space-y-12">
@@ -85,7 +93,7 @@
                         <div class="absolute -left-3 -top-4 text-indigo-200 bg-white rounded-full">
                             <i data-lucide="quote" class="w-10 h-10 fill-current"></i>
                         </div>
-                        <h3 class="flex items-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
+                        <h3 class="flex items-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-3" aria-hidden="true">
                             <i data-lucide="book-marked" class="w-4 h-4 mr-2 text-indigo-500"></i> Theme Verse
                         </h3>
                         <blockquote id="displayVerse" class="text-lg sm:text-xl md:text-2xl text-slate-800 italic serif-text leading-relaxed pl-2">
@@ -94,7 +102,7 @@
 
                     <!-- Theology & Insight -->
                     <section>
-                        <h3 class="flex items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 serif-text">
+                        <h3 class="flex items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 serif-text" aria-hidden="true">
                             <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-amber-500"></i> Theology & Insight
                         </h3>
                         <p id="displayTheology" class="text-slate-600 leading-loose text-[1.05rem]"></p>
@@ -102,7 +110,7 @@
 
                     <!-- Heart & Life -->
                     <section>
-                        <h3 class="flex items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 serif-text">
+                        <h3 class="flex items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 serif-text" aria-hidden="true">
                             <i data-lucide="heart" class="w-5 h-5 mr-2 text-rose-500"></i> Heart & Life
                         </h3>
                         <p id="displayHeart" class="text-slate-600 leading-loose text-[1.05rem]"></p>
@@ -110,7 +118,7 @@
 
                     <!-- Practical Action -->
                     <section class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 shadow-inner">
-                        <h3 class="flex items-center text-lg font-bold text-indigo-900 mb-3 serif-text">
+                        <h3 class="flex items-center text-lg font-bold text-indigo-900 mb-3 serif-text" aria-hidden="true">
                             <i data-lucide="footprints" class="w-5 h-5 mr-2 text-indigo-600"></i> Practical Action
                         </h3>
                         <p id="displayAction" class="text-indigo-800 leading-relaxed"></p>
@@ -121,7 +129,7 @@
                         <div class="absolute top-0 right-0 p-4 opacity-5 transform rotate-12">
                             <i data-lucide="sun" class="w-24 h-24"></i>
                         </div>
-                        <h3 class="flex items-center text-lg font-bold text-slate-800 mb-3 serif-text relative z-10">
+                        <h3 class="flex items-center text-lg font-bold text-slate-800 mb-3 serif-text relative z-10" aria-hidden="true">
                             <i data-lucide="hands-praying" class="w-5 h-5 mr-2 text-slate-500"></i> Closing Prayer
                         </h3>
                         <p id="displayPrayer" class="text-slate-600 leading-relaxed italic relative z-10"></p>
@@ -440,6 +448,7 @@
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const listenBtn = document.getElementById('listenBtn');
 
         // Content Display Elements
         const displayDate = document.getElementById('displayDate');
@@ -453,9 +462,102 @@
         // State
         let activeDateId = null;
         let currentLoadedDateStr = null;
+        
+        // Audio State
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+        let isPlaying = false;
+        let isCancelling = false;
 
         // Icons Initialization
         lucide.createIcons();
+
+        // Speech Synthesis Logic
+        function stopSpeaking() {
+            if (synth && synth.speaking) {
+                isCancelling = true;
+                synth.cancel();
+                isPlaying = false;
+                updateListenBtnUI();
+                // Reset flag slightly after cancel finishes
+                setTimeout(() => isCancelling = false, 100);
+            }
+        }
+
+        function updateListenBtnUI() {
+            if (!listenBtn) return;
+            if (isPlaying) {
+                listenBtn.innerHTML = `<i data-lucide="pause-circle" class="w-5 h-5"></i><span>Pause Reading</span>`;
+            } else if (synth && synth.speaking && synth.paused) {
+                listenBtn.innerHTML = `<i data-lucide="play-circle" class="w-5 h-5"></i><span>Resume Reading</span>`;
+            } else {
+                listenBtn.innerHTML = `<i data-lucide="headphones" class="w-5 h-5"></i><span>Listen to Devotional</span>`;
+            }
+            lucide.createIcons();
+        }
+
+        function toggleSpeak() {
+            if (!synth) {
+                alert("Sorry, your browser does not support text to speech!");
+                return;
+            }
+
+            // If already speaking but paused, or playing
+            if (synth.speaking && !isCancelling) {
+                if (synth.paused) {
+                    synth.resume();
+                    isPlaying = true;
+                } else {
+                    synth.pause();
+                    isPlaying = false;
+                }
+                updateListenBtnUI();
+                return;
+            }
+
+            // Start fresh reading
+            const devotional = devotionals.find(d => d.date === activeDateId);
+            if (!devotional) return;
+
+            // Concatenate ONLY the body text, deliberately skipping the headings. 
+            // Using "..." to introduce a slight pause between sections for emotional pacing.
+            const textToSpeak = `${devotional.verse} ... ... ${devotional.theology} ... ... ${devotional.heart} ... ... ${devotional.action} ... ... ${devotional.prayer}`;
+
+            currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            // Adjust to sound more reflective/emotional (slightly slower rate)
+            currentUtterance.rate = 0.85; 
+            currentUtterance.pitch = 1.0; 
+            
+            // Attempt to find a higher quality English voice
+            const voices = synth.getVoices();
+            const premiumVoices = voices.filter(v => v.lang.startsWith('en') && (v.name.includes('Premium') || v.name.includes('Google') || v.name.includes('Natural')));
+            
+            if (premiumVoices.length > 0) {
+                currentUtterance.voice = premiumVoices[0];
+            } else {
+                const enVoices = voices.filter(v => v.lang.startsWith('en'));
+                if (enVoices.length > 0) currentUtterance.voice = enVoices[0];
+            }
+
+            currentUtterance.onend = () => {
+                if (!isCancelling) {
+                    isPlaying = false;
+                    updateListenBtnUI();
+                }
+            };
+
+            currentUtterance.onerror = () => {
+                if (!isCancelling) {
+                    isPlaying = false;
+                    updateListenBtnUI();
+                }
+            };
+
+            synth.speak(currentUtterance);
+            isPlaying = true;
+            updateListenBtnUI();
+        }
 
         // Time logic: Get current date in America/Vancouver timezone
         function getVancouverDateStr() {
@@ -489,6 +591,9 @@
 
         // Display Selected Devotional
         function selectDevotional(dateId) {
+            // Stop speaking previous devotional if any
+            stopSpeaking();
+            
             activeDateId = dateId;
             renderSidebar(); // Update active states
 
@@ -558,6 +663,9 @@
 
         // Initialization: Find today's date (Vancouver) and load it
         function initApp() {
+            // Pre-load voices for SpeechSynthesis (helps Chrome fetch them early)
+            if (synth) synth.getVoices();
+            
             const todayStr = getVancouverDateStr();
             currentLoadedDateStr = todayStr;
             const todayDevotional = devotionals.find(d => d.date === todayStr);
